@@ -52,7 +52,7 @@
                     <!-- <div *ngIf="(accountService.currentUser$ | async) !== null">
                         <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" class="form-control" [value]="user.firstName" id="firstname" readonly>
+                            <input type="text" class="form-control" [(ngModel)]="model.fisr" id="firstname" readonly>
                         </div>
                         <div class="form-group">
                             <label>Last Name</label>
@@ -67,8 +67,8 @@
                     </div> -->
 
                     <!-- Register -->
-                    <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/register"
-                            class="link-danger">Register</a></p>
+                    <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a routerLink="../register" class="link-danger">Register</a></p>
+                    
                 </form>
             </div>
         </div>

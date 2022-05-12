@@ -16,13 +16,13 @@ export class NavComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login() {
-    this.accountService.login(this.model).subscribe(response => {
-      console.log(response);
-    },  error => {
-      console.log(error);
-    })
-  }
+  // login() {
+  //   this.accountService.login(this.model).subscribe(response => {
+  //     console.log(response);
+  //   },  error => {
+  //     console.log(error);
+  //   })
+  // }
 
   logout() {
     this.accountService.logout();
