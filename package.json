@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "angular-social-login": "^0.0.1",
+    "angularx-social-login": "^4.1.0"
+  }
+}

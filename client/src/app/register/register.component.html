@@ -1,0 +1,105 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="">Fill out the registration form</h1>
+            <div class="card">
+                <div class="card-body">
+                    <form class="form-horizontal" method="post" action="#">
+                        <!-- First name input -->
+                        <div class="form-floating mb-3">
+                            <!-- <i class="fas fa-id-card fa-lg me-3 fa-fw"></i> -->
+                            <input type="text" class="form-control" id="floatingInput" placeholder="John">
+                            <label for="floatingInput">First name</label>
+                        </div>
+
+                        <!-- First name input -->
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Doe">
+                            <label for="floatingInput">Last name</label>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Email address</label>
+                        </div>
+
+                        <!-- Username input -->
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="someUsername123">
+                            <label for="floatingInput">Username</label>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingInput" placeholder="Password">
+                            <label for="floatingInput">Password</label>
+                        </div>
+
+                        <!-- Confrim password input -->
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingInput"
+                                placeholder="Confirm password">
+                            <label for="floatingInput">Confirm password</label>
+                        </div>
+
+                        <!-- Date of birth input -->
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="floatingInput" placeholder="15/11/1998">
+                            <label for="floatingInput">Date of birth</label>
+                        </div>
+
+                        <!-- Adress input -->
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" placeholder="Some adress 99">
+                            <label for="floatingInput">Address</label>
+                        </div>
+
+                        <!-- Add image -->
+                        <form action="/action_page.php">
+                            <label position- class="form-label" id="label"> Choose profile picture </label><br>
+                            <input type="file" id="myFile" name="filename"> <br><br>
+                        </form>
+                        
+                        <label position- class="form-label" id="label"> User type </label><br>
+                        
+                        <!-- User type radio buttons -->
+                        <div class="form-check form-check-inline align-items-left">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioButton"
+                                value="option1" checked />
+                            <label class="form-check-label" for="consumer"> Consumer </label>
+                        </div>
+
+                        <div class="form-check form-check-inline mb-3">
+                            <br>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioButton"
+                                value="option2" />
+                            <label class="form-check-label" for="deliverer"> Deliverer </label>
+                        </div>
+
+                        <!-- <div class="form-check form-check-inline">
+                            <br>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioButton" value="option2" />
+                            <label class="form-check-label" for="deliverer"> Admin </label>
+                        </div>  -->
+
+                        <div class="form-group">
+                            <button type="button"
+                                class="btn btn-primary btn-lg btn-block login-button">Register</button>
+                        </div>
+
+                        <div class="login-register">
+                            <a href="">Go back to home page</a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
