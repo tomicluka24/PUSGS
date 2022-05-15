@@ -6,17 +6,23 @@ import { FormsModule } from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './Other components/nav/nav.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
-
+import { HomeComponent } from './Other components/home/home.component';
+import { RegisterComponent } from './Other components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  FacebookLoginProvider,
-  SocialLoginModule,
-  SocialAuthServiceConfig,
-} from 'angularx-social-login';
+import {FacebookLoginProvider, SocialLoginModule, SocialAuthServiceConfig} from 'angularx-social-login';
+import { DashboardComponent } from './Other components/dashboard/dashboard.component';
+import { ToastrModule } from 'ngx-toastr';
+import { VerificationComponent } from './Admin components/verification/verification.component';
+import { AllOrdersComponent } from './Admin components/all-orders/all-orders.component';
+import { AddProductComponent } from './Admin components/add-product/add-product.component';
+import { UserProfileComponent } from './Other components/user-profile/user-profile.component';
+import { NewOrderComponent } from './Consumer components/new-order/new-order.component';
+import { PreviousOrdersComponent } from './Consumer components/previous-orders/previous-orders.component';
+import { NewOrdersComponent } from './Deliverer components/new-orders/new-orders.component';
+import { MyOrdersComponent } from './Deliverer components/my-orders/my-orders.component';
+import { CurrentOrderComponent } from './Deliverer components/current-order/current-order.component';
 
 
 @NgModule({
@@ -24,7 +30,17 @@ import {
     AppComponent,
     NavComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent,
+    VerificationComponent,
+    AllOrdersComponent,
+    AddProductComponent,
+    UserProfileComponent,
+    NewOrderComponent,
+    PreviousOrdersComponent,
+    NewOrdersComponent,
+    MyOrdersComponent,
+    CurrentOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +51,9 @@ import {
     BsDropdownModule.forRoot(),
     ReactiveFormsModule,
     SocialLoginModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    })
   ],
   providers: [
     {

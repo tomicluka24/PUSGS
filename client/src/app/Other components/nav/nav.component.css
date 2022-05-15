@@ -1,0 +1,17 @@
+.dropdown-toggle, .dropdown-item {
+    cursor: pointer;
+}
+
+#navlinks {
+    font-weight: bold;
+    
+}
+
+#navCaption {
+    font-weight: bolder;
+}
+
+#welcome {
+    font-weight: bold;
+    text-decoration: none;
+}

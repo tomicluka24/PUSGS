@@ -1,13 +1,38 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './Other components/dashboard/dashboard.component';
+import { HomeComponent } from './Other components/home/home.component';
+import { RegisterComponent } from './Other components/register/register.component';
+import { AuthGuard } from './_guard/auth.guard';
+import { AuthFbGuard } from './_guard/auth-fb.guard';
+import { UserProfileComponent } from './Other components/user-profile/user-profile.component';
+import { AddProductComponent } from './Admin components/add-product/add-product.component';
+import { AllOrdersComponent } from './Admin components/all-orders/all-orders.component';
+import { VerificationComponent } from './Admin components/verification/verification.component';
+import { NewOrderComponent } from './Consumer components/new-order/new-order.component';
+import { PreviousOrdersComponent } from './Consumer components/previous-orders/previous-orders.component';
+import { CurrentOrderComponent } from './Deliverer components/current-order/current-order.component';
+import { MyOrdersComponent } from './Deliverer components/my-orders/my-orders.component';
+import { NewOrdersComponent } from './Deliverer components/new-orders/new-orders.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'dashboard', component: DashboardComponent},
+  {path: 'user-profile', component: UserProfileComponent},
+  {path: 'add-product', component: AddProductComponent},
+  {path: 'all-orders', component: AllOrdersComponent},
+  {path: 'verification', component: VerificationComponent},
+  {path: 'new-order', component: NewOrderComponent},
+  {path: 'previous-orders', component: PreviousOrdersComponent},
+  {path: 'current-order', component: CurrentOrderComponent},
+  {path: 'my-orders', component: MyOrdersComponent},
+  {path: 'new-orders', component: NewOrdersComponent},
   {path: '**', component: HomeComponent, pathMatch: 'full'},
 ];
+
+
+// , canActivate: [AuthGuard, AuthFbGuard]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
