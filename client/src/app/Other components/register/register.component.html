@@ -9,92 +9,54 @@
             <h1 class="">Fill out the registration form</h1>
             <div class="card">
                 <div class="card-body">
-                    <form class="form-horizontal" (ngSubmit)="register()" autocomplete="off" method="post" action="#">
-                        <!-- First name input -->
-                        <!-- <div class="form-floating mb-3">
-                            <input type="text" [(ngModel)]="model.firstName" class="form-control" name="firstName" id="floatingInputFirstName" placeholder="John">
-                            <label for="floatingInput">First name</label>
-                        </div> -->
+                    <form class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="off"
+                        method="post" action="#">
 
-                        <!-- Last name input -->
-                        <!-- <div class="form-floating mb-3">
-                            <input type="text" [(ngModel)]="model.lastName" class="form-control" name="lastName" id="floatingInputLastName" placeholder="Doe">
-                            <label for="floatingInput">Last name</label>
-                        </div> -->
-
-                        <!-- Email input -->
-                        <!-- <div class="form-floating mb-3">
-                            <input type="text" [(ngModel)]="model.Email" class="form-control" name="email" id="floatingInputEmail" placeholder="name@example.com">
-                            <label for="floatingInput">Email address</label>
-                        </div> -->
-
-                        <!-- Username input -->
-                        <div class="form-floating mb-3">
-                            <input type="text" [(ngModel)]="model.username" class="form-control" name="username" id="floatingInputUsername" placeholder="someUsername123">
-                            <label for="floatingInput">Username</label>
-                        </div>
-
-                        <!-- Password input -->
-                        <div class="form-floating mb-3">
-                            <input type="password" [(ngModel)]="model.password" class="form-control" name="password" id="floatingInputPassword" placeholder="Password">
-                            <label for="floatingInput">Password</label>
-                        </div>
-
-                        <!-- Confirm password input -->
-                        <!-- <div class="form-floating mb-3">
-                            <input type="password" [(ngModel)]="model.password" class="form-control" id="floatingInputConfirmPassword"
-                                placeholder="Confirm password">
-                            <label for="floatingInput">Confirm password</label>
-                        </div> -->
-
-                        <!-- Date of birth input -->
-                        <!-- <div class="form-floating mb-3">
-                            <input type="date" [(ngModel)]="model.dateOfBirth" class="form-control" id="floatingInputDateOfBirth" placeholder="15/11/1998">
-                            <label for="floatingInput">Date of birth</label>
-                        </div> -->
-
-                        <!-- Adress input -->
-                        <!-- <div class="form-floating mb-3">
-                            <input type="text" [(ngModel)]="model.address" class="form-control" id="floatingInputAddress" placeholder="Some adress 99">
-                            <label for="floatingInput">Address</label>
-                        </div> -->
-
-                        <!-- Add image -->
-                        <!-- <form action="/action_page.php">
-                            <label position- class="form-label" id="image"> Choose profile picture </label><br>
-                            <input type="file" [(ngModel)]="model.image" id="myFile" name="filename"> <br><br>
-                        </form> -->
-                        
-
-                        
-                        <!-- User type radio buttons -->
-                        <!-- <label position- class="form-label" id="labelRadioButtons"> User type </label><br>
-                        <div class="form-check form-check-inline align-items-left">
-                            <input class="form-check-input" [(ngModel)]="model.userType" type="radio" name="inlineRadioOptions" id="radioButtonConsumer"
-                                value="option1" checked />
-                            <label class="form-check-label" for="consumer"> Consumer </label>
-                        </div>
-
-                        <div class="form-check form-check-inline mb-3">
-                            <br>
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioButtonDeliverer"
-                                value="option2" />
-                            <label class="form-check-label" for="deliverer"> Deliverer </label>
-                        </div> -->
-
-                        <!-- <div class="form-check form-check-inline">
-                            <br>
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioButtonAdmin" value="option2" />
-                            <label class="form-check-label" for="deliverer"> Admin </label>
-                        </div>  -->
+                        <app-text-input [formControl]='registerForm.controls["username"]' [label]='"Username"'>
+                        </app-text-input>
+                        <app-text-input [formControl]='registerForm.controls["password"]' [label]='"Password"'
+                            type='"password"'></app-text-input>
+                        <app-text-input [formControl]='registerForm.controls["confirmPassword"]'
+                            [label]='"Confirm Password"' type='"password"'></app-text-input>
+                        <app-text-input [formControl]='registerForm.controls["firstName"]' [label]='"First Name"'>
+                        </app-text-input>
+                        <app-text-input [formControl]='registerForm.controls["lastName"]' [label]='"Last Name"'>
+                        </app-text-input>
+                        <app-text-input [formControl]='registerForm.controls["email"]' [label]='"Email"'>
+                        </app-text-input>
+                        <app-text-input [formControl]='registerForm.controls["dateOfBirth"]' [label]='"Date Of Birth"'
+                            type="date"></app-text-input>
+                        <app-text-input [formControl]='registerForm.controls["address"]' [label]='"Address"'>
+                        </app-text-input>
+                        <app-text-input [formControl]='registerForm.controls["image"]' [label]='"Image"' type="file">
+                        </app-text-input>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block register-button">Register</button>
+                            <label class="control-label" style="margin-right: 10px;">User type: </label>
+                            <label class="radio-inline">
+                                <input type="radio" value='Consumer' formControlName='userType'> Consumer
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" value='Deliverer' formControlName='userType' class="ml-3"> Deliverer
+                            </label>
+                        </div>
+
+                        <div class="row" *ngIf="validationErrors.length > 0">
+                            <ul class="text-danger">
+                                <li *ngFor="let error of validationErrors">
+                                    {{error}}
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="form-group">
+                            <button [disabled]="!registerForm.valid" type="submit"
+                                class="btn btn-primary btn-lg btn-block register-button">Register</button>
                             <!-- <button type="button" class="btn btn-secondary btn-lg btn-block register-button" (click)="cancel()">Cancel</button> -->
                         </div>
 
                         <div class="login-register">
-                            <a routerLink="/" >Go back to home page</a>
+                            <a routerLink="/">Go back to home page</a>
                         </div>
                     </form>
                 </div>

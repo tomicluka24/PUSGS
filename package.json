@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@popperjs/core": "^2.11.5",
     "angular-social-login": "^0.0.1",
     "angularx-social-login": "^4.1.0"
   }

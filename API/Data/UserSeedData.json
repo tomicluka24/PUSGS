@@ -1,0 +1,119 @@
+[
+    {
+        "UserName": "luka98",
+        "Email": "akulas98@gmail.com",
+        "FirstName": "Luka",
+        "LastName": "Tomic",
+        "UserType": "Admin",
+        "DateOfBirth": "1998-04-15",
+        "Address": "Desanke Maksimovic 24",
+        "Photo": 
+            {
+                "Url": "https://randomuser.me/portraits/men/11.jpg"
+            }
+    },
+    {
+        "UserName": "vito64",
+        "Email": "vito.tomic64@gmail.com",
+        "FirstName": "Vitomir",
+        "LastName": "Tomic",
+        "UserType": "Admin",
+        "DateOfBirth": "1964-12-12",
+        "Address": "Desanke Maksimovic 24",
+        "Photo": 
+            {
+                "Url": "https://randomuser.me/portraits/men/4.jpg"
+            }
+    },
+    {
+        "UserName": "vera66",
+        "Email": "veracvetvrbas@gmail.com",
+        "FirstName": "Olivera",
+        "LastName": "Tomic",
+        "UserType": "Admin",
+        "DateOfBirth": "1966-08-30",
+        "Address": "Desanke Maksimovic 24",
+        "Photo": 
+            {
+                "Url": "https://randomuser.me/portraits/women/4.jpg"
+            }
+    },
+    {
+        "UserName": "tijana95",
+        "Email": "tikujama95@gmail.com",
+        "FirstName": "Tijana",
+        "LastName": "Tomic",
+        "UserType": "Consumer",
+        "DateOfBirth": "1995-04-05",
+        "Address": "Desanke Maksimovic 24",
+        "Photo": 
+            {
+                "Url": "https://randomuser.me/portraits/women/52.jpg"
+            }
+    },
+    {
+        "UserName": "miljana89",
+        "Email": "mtriingisil@gmail.com",
+        "FirstName": "Miljana",
+        "LastName": "Tomic",
+        "UserType": "Consumer",
+        "DateOfBirth": "1989-08-31",
+        "Address": "Desanke Maksimovic 24",
+        "Photo":
+            {
+                "Url": "https://randomuser.me/portraits/women/32.jpg"
+            }
+    },
+    {
+        "UserName": "teodora98",
+        "Email": "tsladojevic98@gmail.com",
+        "FirstName": "Teodora",
+        "LastName": "Sladojevic",
+        "UserType": "Deliverer",
+        "DateOfBirth": "1998-10-28",
+        "Address": "Milenka Grcica 29",
+        "Photo":
+            {
+                "Url": "https://randomuser.me/portraits/women/16.jpg"
+            }
+    },
+    {
+        "UserName": "vojo98",
+        "Email": "vvukicevic98@gmail.com",
+        "FirstName": "Vojislav",
+        "LastName": "Vukicevic",
+        "UserType": "Deliverer",
+        "DateOfBirth": "1998-07-22",
+        "Address": "Danila Bojovica 138a",
+        "Photo": 
+            {
+                "Url": "https://randomuser.me/portraits/men/53.jpg"
+            }
+    },
+    {
+        "UserName": "coka98",
+        "Email": "corovicm98@gmail.com",
+        "FirstName": "Marko",
+        "LastName": "Corovic",
+        "UserType": "Consumer",
+        "DateOfBirth": "1998-06-21",
+        "Address": "Zarka Zrenjanina 42",
+        "Photo":
+            {
+                "Url": "https://randomuser.me/portraits/men/35.jpg"
+            }
+    },
+    {
+        "UserName": "rade98",
+        "Email": "krekrezr@gmail.com",
+        "FirstName": "Rade",
+        "LastName": "Kerkez",
+        "UserType": "Consumer",
+        "DateOfBirth": "1998-12-18",
+        "Address": "Save Kovacevica 24",
+        "Photo":
+            {
+                "Url": "https://randomuser.me/portraits/men/11.jpg"
+            }
+    }
+]

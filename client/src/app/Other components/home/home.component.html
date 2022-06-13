@@ -12,7 +12,7 @@
                 <form *ngIf="(accountService.currentUser$ | async) === null" (ngSubmit)="login()" #loginForm="ngForm">
                     <!-- Email input -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" [(ngModel)]="model.username" name="email"
+                        <input type="text" class="form-control" [(ngModel)]="model.email" name="email"
                             id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Email address</label>
                     </div>

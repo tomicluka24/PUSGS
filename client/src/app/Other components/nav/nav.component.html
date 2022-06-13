@@ -14,18 +14,6 @@
             </li>
         </ul>
 
-        <!-- <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ | async">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">User profile</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Orders</a>
-            </li>
-        </ul> -->
-
         <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
             <a id="welcome" class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.username | titlecase}}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu="">

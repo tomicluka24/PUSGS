@@ -1,0 +1,9 @@
+#yourProfile {
+    width: 300px;
+    margin: 100px auto;
+    padding: 70px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    box-shadow: 1px 3px 15px #000000;
+}
