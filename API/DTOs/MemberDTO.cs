@@ -16,7 +16,8 @@ namespace API.DTOs
         public string UserType { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
-        public Photo Photos { get; set; }
+        public string PhotoUrl { get; set; }
+        public string Verified { get; set; }
 
     }
 }

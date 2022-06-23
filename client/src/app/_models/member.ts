@@ -7,5 +7,6 @@ export interface Member {
     userType: string;
     address: string;
     email: string;
-    photo?: any; // TOFIX
+    photoUrl: string; 
+    verified: string; 
   }

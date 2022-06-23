@@ -1,0 +1,33 @@
+
+<div class="col-4">
+    <h1>Update Your profile</h1>
+</div>
+
+<div class="row" *ngIf="member">
+    <div class="col-8">
+        <tabset class="member-tabset">
+            <tab heading="{{member.username}}'s info">
+                <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+                    <h4>First name</h4>
+                    <textarea class="form-control" [(ngModel)]="member.firstName" name="firstName" rows="1"></textarea>
+                    <h4 class="mt-2">Last name</h4>
+                    <textarea class="form-control" [(ngModel)]="member.lastName" name="lastName" rows="1"></textarea>
+                    <!-- <h4 class="mt-2">Date of birth</h4>
+                    <textarea class="form-control" [(ngModel)]="member.dateOfBirth" name="dateOfBirth" rows="1"></textarea>
+                    <input class="form-control" type="date" id="dateOfBirth" [(ngModel)]="member.DateOfBirth" name="dateOfBirth">  -->
+                    <h4 class="mt-2">Address</h4>
+                    <textarea class="form-control" [(ngModel)]="member.address" name="address" rows="1"></textarea>
+                    <h4 class="mt-2">Email</h4>
+                    <textarea class="form-control" [(ngModel)]="member.email" name="email" rows="1"></textarea>
+                    <!-- <h4 class="mt-2">Photo</h4>
+                    <textarea class="form-control" [(ngModel)]="member.photo" name="photo" rows="1"></textarea>
+                    <input class="form-control" type="image" id="photoUrl" [(ngModel)]="member.photoUrl" name="photoUrl"> -->
+                </form>
+            </tab>
+            
+        </tabset>
+        <div class="member-tabset" mt="3">
+            <button [disabled]="!editForm.dirty" form="editForm" type="submit" class="btn btn-success btn-block">Save Changes</button>
+        </div>
+    </div>
+</div>

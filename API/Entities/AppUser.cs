@@ -17,6 +17,7 @@ namespace API.Entities
         public DateTime DateOfBirth { get; set; }
         public string Address { get; set; }
         public string UserType { get; set; }
-        public Photo Photo { get; set; }
+        public string PhotoUrl { get; set; }
+        public string Verified { get; set; }
     }
 }

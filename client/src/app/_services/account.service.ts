@@ -26,8 +26,9 @@ export class AccountService {
       })
     )
   }
+  
 
-  register(model: any) {
+  register(model: any, ) {
     return this.http.post(this.baseUrl + 'account/register', model).pipe(
       map((user: User) => {
         if (user) {
@@ -47,5 +48,14 @@ export class AccountService {
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+  }
+
+  logoutSocial() {
+    localStorage.removeItem('socialUser');
+    this.currentUserSource.next(null);
+  }
+
+  signOutSocial() {
+    
   }
 }

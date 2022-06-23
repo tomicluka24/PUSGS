@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
@@ -27,12 +28,18 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
+        // , [FromForm]IFormFile file
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
             if (await UserExists(registerDTO.Username))
                 return BadRequest("Username is taken");
 
+
             var user = _mapper.Map<AppUser>(registerDTO);
+
+            // Regex pattern = new Regex("[;,\t\r ]|[\n]{2}");
+            // pattern.Replace(user.PhotoUrl, "\n");
+            user.PhotoUrl = user.PhotoUrl.Replace("C:\\fakepath\\", "http://127.0.0.1:8887/Slike/");
 
             using var hmac = new HMACSHA512();
 
@@ -41,12 +48,18 @@ namespace API.Controllers
             user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password));
             user.PasswordSalt = hmac.Key;
 
+            // var result = await _photoService.AddPhotoAsync(file);
+            // if (result.Error != null) 
+            //     return BadRequest(result.Error.Message);
+            // user.PhotoUrl  = result.SecureUrl.AbsoluteUri;
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return new UserDTO
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                PhotoUrl = user.PhotoUrl
             };
         }
 

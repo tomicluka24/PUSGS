@@ -1,0 +1,43 @@
+<div *ngIf="member?.userType === 'Consumer' || member?.userType === 'Admin' || member?.userType === 'Deliverer'"
+    routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
+    <button mat-raised-button color="primary"> User profile </button>
+</div>
+
+<div *ngIf="member?.userType === 'Admin'" routerLink="/members" style="margin-top: 50px; text-align: center;">
+    <button mat-raised-button color="primary"> Member list </button>
+</div>
+
+<div *ngIf="member?.userType === 'Admin'" routerLink="/all-orders" style="margin-top: 50px; text-align: center;">
+    <button mat-raised-button color="primary"> All orders </button>
+</div>
+
+<div *ngIf="member?.userType === 'Admin'" routerLink="/add-product" style="margin-top: 50px; text-align: center;">
+    <button mat-raised-button color="primary"> Add product </button>
+</div>
+
+<div *ngIf="member?.userType === 'Admin'" routerLink="/verification" style="margin-top: 50px; text-align: center;">
+    <button mat-raised-button color="primary"> Verification </button>
+</div>
+
+<div *ngIf="member?.userType === 'Consumer'" routerLink="/new-order" style="margin-top: 50px; text-align: center;">
+    <button mat-raised-button color="primary"> New/Current order </button>
+</div>
+
+<div *ngIf="member?.userType === 'Consumer'" routerLink="/previous-orders"
+    style="margin-top: 50px; text-align: center;">
+    <button mat-raised-button color="primary"> Previous orders </button>
+</div>
+
+
+<div *ngIf="member?.userType === 'Deliverer'" routerLink="/new-orders" style="margin-top: 50px; text-align: center;">
+    <button mat-raised-button color="primary"> New orders </button>
+</div>
+
+<div *ngIf="member?.userType === 'Deliverer'" routerLink="/my-orders" style="margin-top: 50px; text-align: center;">
+    <button mat-raised-button color="primary"> My orders </button>
+</div>
+
+<div *ngIf="member?.userType === 'Deliverer'" routerLink="/current-order" style="margin-top: 50px; text-align: center;">
+    <button mat-raised-button color="primary"> Current order </button>
+</div>
+

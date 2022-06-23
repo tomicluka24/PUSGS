@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.DTOs
 {
@@ -28,6 +29,8 @@ namespace API.DTOs
         public string Address { get; set; }
         [Required]
         public string Email { get; set; }
-        public Photo Photos { get; set; }
+        // IFormFile File { get; set; }
+        public string PhotoUrl { get; set; }
+        public string Verified { get; set; }
     }
 }

@@ -1,0 +1,66 @@
+<div class="row" *ngIf="member">
+    <div class="col-4">
+        <h1 id="h1">{{member.firstName}}'s profile</h1>
+        <div class="card">
+            <img [src]="sanitizeImageUrl(member.photoUrl)" alt="{{member.username}}"
+                class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <div>
+                    <strong>Name:</strong>
+                    <p>{{member.firstName}} {{member.lastName}}</p>
+                </div>
+                <div>
+                    <strong>Username:</strong>
+                    <p>{{member.username}}</p>
+                </div>
+                <div>
+                    <strong>Date of birth:</strong>
+                    <p>{{member.dateOfBirth}}</p>
+                </div>
+                <div>
+                    <strong>User type:</strong>
+                    <p>{{member.userType}}</p>
+                </div>
+                <div>
+                    <strong>Address:</strong>
+                    <p>{{member.address}}</p>
+                </div>
+                <div>
+                    <strong>Email:</strong>
+                    <p>{{member.email}}</p>
+                </div>
+            </div>
+
+            <div routerLink="/member-edit" style="margin-top: 50px; margin-bottom: 50px; text-align: center;">
+                <button mat-raised-button color="primary"> Edit your profile </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="socialUser">
+    <div class="col-4">
+        <h1 id="h1">{{socialUser.firstName}}'s profile</h1>
+        <div class="card">
+            <img src="{{socialUser.photoUrl}}" class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <div>
+                    <strong>Name:</strong>
+                    <p>{{socialUser.firstName}} {{socialUser.lastName}}</p>
+                </div>
+                <div>
+                    <strong>Email:</strong>
+                    <p>{{socialUser.email}}</p>
+                </div>
+                <div>
+                    <strong>Provider:</strong>
+                    <p>{{socialUser.provider}}</p>
+                </div>
+                <div>
+                    <strong>Provider id:</strong>
+                    <p>{{socialUser.id}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

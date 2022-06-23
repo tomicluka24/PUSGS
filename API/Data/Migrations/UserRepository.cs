@@ -42,12 +42,13 @@ namespace API.Data.Migrations
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users
-                .SingleOrDefaultAsync(x => x.UserName == username);
+            //.Include(p => p.Photo)
+            return await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
+            //.Include(p => p.Photo)
             return await _context.Users.ToListAsync();
         }
 
