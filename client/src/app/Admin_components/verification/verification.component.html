@@ -1,7 +1,14 @@
 <h1>Unverified users</h1>
-<div id="card" class="row">
-    <div  *ngFor="let member of members$ | async" class="col-2">
-        
-        <app-member-card  *ngIf="member.verified == 'False'" [member]="member"></app-member-card>
+<div>
+    <div  *ngFor="let member of members$ | async" class="col-1">
+        <!-- <li *ngIf="member.verified == 'False'"> {{member.photoUrl}} {{member.username}}</li>         -->
+        <!-- <app-member-card  *ngIf="member.verified == 'False'" [member]="member"></app-member-card> -->
+        <li id="users" *ngIf="member.verified == 'False' && member?.userType === 'Deliverer'">
+            {{member.username}} 
+            <div style="float: left;">
+                <img src={{member.photoUrl}} width="150" height="150">
+            </div>
+            <button style="float: right;" class="btn btn-primary btn-lg" (click)="verify(member.username)">Verify</button>
+        </li>
     </div>
 </div>

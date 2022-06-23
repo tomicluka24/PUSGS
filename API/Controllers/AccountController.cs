@@ -34,6 +34,8 @@ namespace API.Controllers
             if (await UserExists(registerDTO.Username))
                 return BadRequest("Username is taken");
 
+            if (registerDTO.UserType == "Deliverer")
+                registerDTO.Verified = "False";
 
             var user = _mapper.Map<AppUser>(registerDTO);
 

@@ -31,6 +31,6 @@ namespace API.DTOs
         public string Email { get; set; }
         // IFormFile File { get; set; }
         public string PhotoUrl { get; set; }
-        public string Verified { get; set; }
+        public string Verified { get; set; } = "True";
     }
 }
