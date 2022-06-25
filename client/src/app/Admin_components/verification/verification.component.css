@@ -2,8 +2,20 @@
      align-items: center;
 }
 
-#users {
+#notVerified {
      font-size: large;
      font-weight: bold;
      color: black;
+}
+
+#verified {
+     font-size: large;
+     font-weight: bold;
+     color: green;
+}
+
+#declined {
+     font-size: large;
+     font-weight: bold;
+     color: red;
 }

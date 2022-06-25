@@ -68,6 +68,21 @@ namespace API.Controllers
             return BadRequest("Failed to validate user");
         }
 
+        [HttpPut("DeclineUser")]
+        public async Task<ActionResult> DeclineUser(MemberUpdateDTO memberUpdateDto)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(memberUpdateDto.Username);
+
+            _mapper.Map(memberUpdateDto, user);
+
+            _userRepository.Update(user);
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to decline user");
+        }
+
+
         // [HttpPost("add-photo")]
         // public async Task<ActionResult<string>> AddPhoto(IFormFile file)
         // {

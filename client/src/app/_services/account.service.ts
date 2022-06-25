@@ -42,6 +42,9 @@ export class AccountService {
 
 
   setCurrentUser(user: User) {
+
+    user.role = this.getDecodedToken(user.token).role;
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
   
@@ -57,5 +60,9 @@ export class AccountService {
 
   signOutSocial() {
     
+  }
+
+  getDecodedToken(token) {
+    return JSON.parse(atob(token.split('.')[1])) // Payload
   }
 }

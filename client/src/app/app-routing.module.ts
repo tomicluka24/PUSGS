@@ -22,23 +22,26 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { SocialUserDashboardComponent } from './Other_components/social-user-dashboard/social-user-dashboard.component';
+import { AdminGuard } from './_guards/admin.guard';
+import { DelivererGuard } from './_guards/deliverer.guard';
+import { ConsumerGuard } from './_guards/consumer.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'user-profile', component: UserProfileComponent},
-  {path: 'members', component: MemberListComponent},
-  {path: 'members/:username', component: MemberDetailComponent},
+  {path: 'members', component: MemberListComponent, canActivate: [AdminGuard]},
+  {path: 'members/:username', component: MemberDetailComponent, canActivate: [AdminGuard]},
   {path: 'member-edit', component: MemberEditComponent, canDeactivate: [PreventUnsavedChangesGuard]},
-  {path: 'add-product', component: AddProductComponent},
-  {path: 'all-orders', component: AllOrdersComponent},
-  {path: 'verification', component: VerificationComponent},
-  {path: 'new-order', component: NewOrderComponent},
-  {path: 'previous-orders', component: PreviousOrdersComponent},
-  {path: 'current-order', component: CurrentOrderComponent},
-  {path: 'my-orders', component: MyOrdersComponent},
-  {path: 'new-orders', component: NewOrdersComponent},
+  {path: 'add-product', component: AddProductComponent, canActivate: [AdminGuard]},
+  {path: 'all-orders', component: AllOrdersComponent, canActivate: [AdminGuard]},
+  {path: 'verification', component: VerificationComponent, canActivate: [AdminGuard]},
+  {path: 'new-order', component: NewOrderComponent, canActivate: [ConsumerGuard]},
+  {path: 'previous-orders', component: PreviousOrdersComponent, canActivate: [ConsumerGuard]},
+  {path: 'current-order', component: CurrentOrderComponent, canActivate: [DelivererGuard]},
+  {path: 'my-orders', component: MyOrdersComponent, canActivate: [DelivererGuard]},
+  {path: 'new-orders', component: NewOrdersComponent, canActivate: [DelivererGuard]},
   {path: 'social-user-dashboard', component: SocialUserDashboardComponent},
   {path: 'errors', component: TestErrorsComponent},
   {path: 'not-found', component: NotFoundComponent},

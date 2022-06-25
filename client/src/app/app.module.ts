@@ -40,6 +40,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import {FileUploadModule} from 'ng2-file-upload';
 import { SocialUserDashboardComponent } from './Other_components/social-user-dashboard/social-user-dashboard.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { SocialUserDashboardComponent } from './Other_components/social-user-das
     MemberEditComponent,
     TextInputComponent,
     SocialUserDashboardComponent,
+    HasRoleDirective,
   ],
   imports: [
     BrowserModule,

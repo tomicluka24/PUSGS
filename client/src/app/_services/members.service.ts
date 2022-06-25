@@ -49,4 +49,13 @@ export class MembersService {
       })
     )
   }
+
+  declineMember(member: Member) {
+    return this.http.put(this.baseUrl + 'users/DeclineUser', member).pipe(
+      map(() => {
+        const index = this.members.indexOf(member);
+        this.members[index] = member;
+      })
+    )
+  }
 }

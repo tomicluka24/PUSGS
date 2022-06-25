@@ -30,4 +30,15 @@ export class VerificationComponent implements OnInit {
     })
   }
 
+  decline(username: string) {
+    this.memberService.getMember(username).subscribe(member => {
+      this.member = member;
+    });
+    
+    this.member.verified = "Declined";
+    this.memberService.declineMember(this.member).subscribe(() => {
+      this.toastr.success('User declined successfully');
+    })
+  }
+
 }

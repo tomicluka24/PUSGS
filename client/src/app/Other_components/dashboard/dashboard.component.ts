@@ -19,11 +19,13 @@ member: Member;
 
   ngOnInit(): void {
     this.loadMember();
+   
   }
   
   loadMember() {
     this.membersService.getMember(this.user.username).subscribe(member => {
       this.member = member})
   }
-
+  
+  
 }

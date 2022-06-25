@@ -10,6 +10,7 @@ using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,50 +18,66 @@ namespace API.Controllers
 {
     public class AccountController : BaseApiController
     {
-        private readonly DataContext _context;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
-        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper)
+        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
         {
             _mapper = mapper;
+            _userManager = userManager;
+            _signInManager = signInManager;
             _tokenService = tokenService;
-            _context = context;
         }
 
         [HttpPost("register")]
         // , [FromForm]IFormFile file
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
-            if (await UserExists(registerDTO.Username))
+            if (await UserUsernameExists(registerDTO.Username))
                 return BadRequest("Username is taken");
 
-            if (registerDTO.UserType == "Deliverer")
-                registerDTO.Verified = "False";
+            if (await UserEmailExists(registerDTO.Email))
+                return BadRequest("Email is taken");
+
 
             var user = _mapper.Map<AppUser>(registerDTO);
 
-            // Regex pattern = new Regex("[;,\t\r ]|[\n]{2}");
-            // pattern.Replace(user.PhotoUrl, "\n");
             user.PhotoUrl = user.PhotoUrl.Replace("C:\\fakepath\\", "http://127.0.0.1:8887/Slike/");
 
-            using var hmac = new HMACSHA512();
-
+            if (registerDTO.UserType == "Deliverer")
+                user.Verified = "False";
+            else
+                user.Verified = "True";        
 
             user.UserName = registerDTO.Username.ToLower();
-            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password));
-            user.PasswordSalt = hmac.Key;
+            user.Email = registerDTO.Email.ToLower();
 
-            // var result = await _photoService.AddPhotoAsync(file);
-            // if (result.Error != null) 
-            //     return BadRequest(result.Error.Message);
-            // user.PhotoUrl  = result.SecureUrl.AbsoluteUri;
+            var result = await _userManager.CreateAsync(user, registerDTO.Password);
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            if (!result.Succeeded) return BadRequest(result.Errors);
+
+            if (user.UserType == "Admin")
+            {
+                var roleResult = await _userManager.AddToRoleAsync(user, "Admin");
+                if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
+            }
+            if (user.UserType == "Consumer")
+            {
+                var roleResult = await _userManager.AddToRoleAsync(user, "Consumer");
+                if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
+            }
+            if (user.UserType == "Deliverer")
+            {
+                var roleResult = await _userManager.AddToRoleAsync(user, "Deliverer");
+                if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
+            }
+
+
             return new UserDTO
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 PhotoUrl = user.PhotoUrl
             };
         }
@@ -68,30 +85,31 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == loginDTO.Email);
+            var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Email == loginDTO.Email.ToLower());
 
             if (user == null)
                 return Unauthorized("Invalid Email");
 
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-            var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDTO.Password));
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDTO.Password, false);
 
-            for (int i = 0; i < computeHash.Length; i++)
-            {
-                if (computeHash[i] != user.PasswordHash[i])
-                    return Unauthorized("Invalid password");
-            }
+            if (!result.Succeeded) return Unauthorized();
 
             return new UserDTO
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = await _tokenService.CreateToken(user),
+                PhotoUrl = user.PhotoUrl
             };
         }
 
-        private async Task<bool> UserExists(string username)
+        private async Task<bool> UserUsernameExists(string username)
         {
-            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+            return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
+        }
+
+        private async Task<bool> UserEmailExists(string email)
+        {
+            return await _userManager.Users.AnyAsync(x => x.Email == email.ToLower());
         }
     }
 }
