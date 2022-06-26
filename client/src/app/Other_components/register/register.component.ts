@@ -44,7 +44,6 @@ export class RegisterComponent implements OnInit {
       dateOfBirth: new FormControl("", Validators.required),
       address: new FormControl("", Validators.required),
       photoUrl: new FormControl(""),
-      //file: new FormControl(""),
       userType: new FormControl("Consumer"),
     })
 

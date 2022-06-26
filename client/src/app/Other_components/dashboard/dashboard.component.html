@@ -1,52 +1,73 @@
 
-    <div *appHasRole="['Admin']" routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
+<div *appHasRole="['Admin']" >
+    <div routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
         <button mat-raised-button color="primary"> User profile </button>
     </div>
-    
-     <div *appHasRole="['Consumer']" routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
-        <button mat-raised-button color="primary"> User profile </button>
-    </div>
-    
-    <div *appHasRole="['Deliverer']" routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
-        <button mat-raised-button color="primary"> User profile </button>
-    </div>
-     
-    <div *appHasRole="['Admin']" [routerLink]= "['/members']" style="margin-top: 50px; text-align: center;">
+
+    <div [routerLink]= "['/members']" style="margin-top: 50px; text-align: center;">
         <button mat-raised-button color="primary"> Member list </button>
     </div>
     
-    <div *appHasRole="['Admin']" routerLink="/all-orders" style="margin-top: 50px; text-align: center;">
+    <div routerLink="/all-orders" style="margin-top: 50px; text-align: center;">
         <button mat-raised-button color="primary"> All orders </button>
     </div>
     
-    <div *appHasRole="['Admin']" routerLink="/add-product" style="margin-top: 50px; text-align: center;">
+    <div routerLink="/add-product" style="margin-top: 50px; text-align: center;">
         <button mat-raised-button color="primary"> Add product </button>
     </div>
     
-    <div *appHasRole="['Admin']" routerLink="/verification" style="margin-top: 50px; text-align: center;">
+    <div routerLink="/verification" style="margin-top: 50px; text-align: center;">
         <button mat-raised-button color="primary"> Verification </button>
     </div>
-    
-    <div *appHasRole="['Consumer']" routerLink="/new-order" style="margin-top: 50px; text-align: center;">
+</div>
+
+
+<div *appHasRole="['Consumer']">
+    <div routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
+        <button mat-raised-button color="primary"> User profile </button>
+    </div>
+
+    <div routerLink="/new-order" style="margin-top: 50px; text-align: center;">
         <button mat-raised-button color="primary"> New/Current order </button>
     </div>
-    
-    <div *appHasRole="['Consumer']" routerLink="/previous-orders"
-        style="margin-top: 50px; text-align: center;">
+
+    <div routerLink="/previous-orders" style="margin-top: 50px; text-align: center;">
         <button mat-raised-button color="primary"> Previous orders </button>
     </div>
-    
-    
-    <div *appHasRole="['Deliverer']" routerLink="/new-orders" style="margin-top: 50px; text-align: center;">
-        <button mat-raised-button color="primary"> New orders </button>
-    </div>
-    
-    <div *appHasRole="['Deliverer']" routerLink="/my-orders" style="margin-top: 50px; text-align: center;">
-        <button mat-raised-button color="primary"> My orders </button>
-    </div>
-    
-    <div *appHasRole="['Deliverer']" routerLink="/current-order" style="margin-top: 50px; text-align: center;">
-        <button mat-raised-button color="primary"> Current order </button>
-    </div>
+</div>
 
 
+
+<div *ngIf="member?.verified== 'True'">
+    <div *appHasRole="['Deliverer']">
+        <div routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
+            <button mat-raised-button color="primary"> User profile </button>
+        </div>
+
+        <div  routerLink="/new-orders" style="margin-top: 50px; text-align: center;">
+            <button mat-raised-button color="primary"> New orders </button>
+        </div>
+
+        <div routerLink="/my-orders" style="margin-top: 50px; text-align: center;">
+            <button mat-raised-button color="primary"> My orders </button>
+        </div>
+        <div routerLink="/current-order" style="margin-top: 50px; text-align: center;">
+            <button mat-raised-button color="primary"> Current order </button>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="member?.verified== 'False'">
+    <p style="font-weight: bold;"> Your profile verification is not finished... please wait for Admin to approve your access.
+        <a class="link-info" style="font-weight: bold;" (click)="logout()">Logout</a>
+    </p>
+    <mat-progress-bar  mode="determinate" value="50"></mat-progress-bar>
+</div>
+
+
+<div *ngIf="member?.verified== 'Declined'">
+    <p style="font-weight: bold;"> Your profile verification was declined!
+        <a class="link-danger" style="font-weight: bold;" (click)="logout()">Please logout</a>
+    </p>
+    <mat-progress-bar color="warn" mode="determinate" value="100"></mat-progress-bar>
+</div>

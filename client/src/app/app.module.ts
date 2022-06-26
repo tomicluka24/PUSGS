@@ -41,6 +41,7 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import {FileUploadModule} from 'ng2-file-upload';
 import { SocialUserDashboardComponent } from './Other_components/social-user-dashboard/social-user-dashboard.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { HasRoleDirective } from './_directives/has-role.directive';
     TabsModule.forRoot(),
     MatRippleModule,
     MatButtonModule,
+    MatProgressBarModule,
     NgxSpinnerModule,
     FileUploadModule,
   ],

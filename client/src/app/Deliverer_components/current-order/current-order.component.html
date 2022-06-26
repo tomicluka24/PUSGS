@@ -1,1 +1,14 @@
-<p>current-order works!</p>
+<div *ngIf="member">
+    <div style="font-weight: bold; white-space: pre-line" *ngIf="member.verified === 'False'">
+        Your verification process is not finished yet.  <br>
+        Please follow the <a routerLink="/dashboard"> link </a> to go back to dashboard.
+    </div>
+</div>
+
+
+<div *ngIf="member">
+    <div style="color: red; font-weight: bold; white-space: pre-line" *ngIf="member.verified === 'Declined'">
+        Your verification was declined <br>
+        Please follow the <a routerLink="/dashboard"> link </a> to go back to dashboard.
+    </div>
+</div>

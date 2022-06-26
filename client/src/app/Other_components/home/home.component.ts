@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    
   }
 
   login() {
@@ -62,4 +63,23 @@ export class HomeComponent implements OnInit {
   registerToggle() {
     this.registerMode = !this.registerMode;
   }
+
+  isUserLoggedIn(): boolean {
+    if (localStorage.getItem('user'))
+    {
+      return true;
+    }
+  }
+
+  isSocialUserLoggedIn(): boolean {
+    if (localStorage.getItem('socialUser'))
+    {
+      return true;
+    }
+  }
+
+  public localStorageItem(id: string): string {
+    return localStorage.getItem(id);
+  }
+
 }

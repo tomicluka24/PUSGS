@@ -1,8 +1,8 @@
 <div class="row" *ngIf="member">
-    <div class="col-4">
+    <div *ngIf="member.verified === 'True'" class="col-4">
         <h1 id="h1">{{member.firstName}}'s profile</h1>
         <div class="card">
-            <img [src]="sanitizeImageUrl(member.photoUrl)" alt="{{member.username}}"
+            <img width="150" height="150" [src]="sanitizeImageUrl(member.photoUrl)" alt="{{member.username}}"
                 class="card-img-top img-thumbnail">
             <div class="card-body">
                 <div>
@@ -35,10 +35,25 @@
                 </div>
             </div>
 
-            <div routerLink="/member-edit" style="margin-top: 50px; margin-bottom: 50px; text-align: center;">
+            <div routerLink="/member-edit" style="margin-bottom: 20px; margin-left: 25px; text-align: left;">
                 <button mat-raised-button color="primary"> Edit your profile </button>
             </div>
         </div>
+    </div>
+</div>
+
+<div *ngIf="member">
+    <div style="font-weight: bold; white-space: pre-line" *ngIf="member.verified === 'False'">
+        Your verification process is not finished yet.  <br>
+        Please follow the <a routerLink="/dashboard"> link </a> to go back to dashboard.
+    </div>
+</div>
+
+
+<div *ngIf="member">
+    <div style="color: red; font-weight: bold; white-space: pre-line" *ngIf="member.verified === 'Declined'">
+        Your verification was declined <br>
+        Please follow the <a routerLink="/dashboard"> link </a> to go back to dashboard.
     </div>
 </div>
 

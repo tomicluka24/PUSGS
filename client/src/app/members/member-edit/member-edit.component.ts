@@ -43,4 +43,9 @@ export class MemberEditComponent implements OnInit {
       this.editForm.reset(this.member);
     })
   }
+
+  changePhoto(newValue) {
+    this.user.photoUrl = newValue
+    console.log(this.user.photoUrl);
+  }
 }

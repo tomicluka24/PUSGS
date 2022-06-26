@@ -40,11 +40,13 @@ namespace API.Controllers
             return await _userRepository.GetMemberAsync(username);
         }
 
-        [HttpPut]
+        [HttpPut("UpdateUser")]
         public async Task<ActionResult> UpdateUser(MemberUpdateDTO memberUpdateDto)
         {
-            var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            memberUpdateDto.PhotoUrl = memberUpdateDto.PhotoUrl.Replace("C:\\fakepath\\", "http://127.0.0.1:8887/Slike/");
 
+            var user = await _userRepository.GetUserByUsernameAsync(memberUpdateDto.Username);
+            user.PhotoUrl = user.PhotoUrl.Replace("C:\\fakepath\\", "http://127.0.0.1:8887/Slike/");
             _mapper.Map(memberUpdateDto, user);
 
             _userRepository.Update(user);

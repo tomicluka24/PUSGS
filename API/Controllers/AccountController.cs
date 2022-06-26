@@ -38,13 +38,14 @@ namespace API.Controllers
                 return BadRequest("Username is taken");
 
             if (await UserEmailExists(registerDTO.Email))
-                return BadRequest("Email is taken");
+                return BadRequest("Account with this email already exists");
 
 
             var user = _mapper.Map<AppUser>(registerDTO);
 
             user.PhotoUrl = user.PhotoUrl.Replace("C:\\fakepath\\", "http://127.0.0.1:8887/Slike/");
-
+            // string dateOfBirth = user.DateOfBirth.ToString();
+            //user.DateOfBirth = user.DateOfBirth.Date;
             if (registerDTO.UserType == "Deliverer")
                 user.Verified = "False";
             else

@@ -4,6 +4,8 @@ import { AccountService } from 'src/app/_services/account.service';
 import { MembersService } from 'src/app/_services/members.service';
 import { take } from 'rxjs/operators';
 import { Member } from 'src/app/_models/member';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,7 +15,7 @@ export class DashboardComponent implements OnInit {
 user: User;
 member: Member;
 
-  constructor(public accountService: AccountService, public membersService: MembersService) {
+  constructor(public accountService: AccountService, public membersService: MembersService, private route: Router,) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
    }
 
@@ -27,5 +29,8 @@ member: Member;
       this.member = member})
   }
   
-  
+  logout() {
+    this.accountService.logout();
+    this.route.navigateByUrl('');
+  }
 }
