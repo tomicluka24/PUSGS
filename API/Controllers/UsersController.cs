@@ -19,11 +19,14 @@ namespace API.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         public readonly IPhotoService _photoService;
-        public UsersController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService)
+        public readonly IEmailSender _emailSender;
+
+        public UsersController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService, IEmailSender emailSender)
         {
             _photoService = photoService;
             _mapper = mapper;
             _userRepository = userRepository;
+            _emailSender = emailSender;
         }
 
         [HttpGet]
@@ -60,10 +63,14 @@ namespace API.Controllers
         public async Task<ActionResult> VerifyUser(MemberUpdateDTO memberUpdateDto)
         {
             var user = await _userRepository.GetUserByUsernameAsync(memberUpdateDto.Username);
+            var message = new Message(new string[] {memberUpdateDto.Email}, "Delivery App - Profile verification",
+                                      memberUpdateDto.Username + " Your Delivery App profile is verified. You can now start using Application :)");
 
             _mapper.Map(memberUpdateDto, user);
 
             _userRepository.Update(user);
+
+            _emailSender.SendEmail(message);
 
             if (await _userRepository.SaveAllAsync()) return NoContent();
 

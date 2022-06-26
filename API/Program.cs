@@ -32,7 +32,9 @@ var builder = WebApplication.CreateBuilder(args);
         builder.WithOrigins("https://localhost:4200").AllowAnyMethod().AllowAnyHeader();
     }));
     builder.Services.AddIdentityServices(builder.Configuration);
-
+    var emailConfig = builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+    builder.Services.AddSingleton(emailConfig);
+    builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 
 var app = builder.Build();
