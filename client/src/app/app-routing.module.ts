@@ -11,6 +11,7 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { AllOrdersComponent } from './Admin_components/all-orders/all-orders.component';
 import { VerificationComponent } from './Admin_components/verification/verification.component';
 import { NewOrderComponent } from './Consumer_components/new-order/new-order.component';
+import { MenuComponent } from './Consumer_components/menu/menu.component';
 import { PreviousOrdersComponent } from './Consumer_components/previous-orders/previous-orders.component';
 import { CurrentOrderComponent } from './Deliverer_components/current-order/current-order.component';
 import { MyOrdersComponent } from './Deliverer_components/my-orders/my-orders.component';
@@ -38,6 +39,7 @@ const routes: Routes = [
   {path: 'all-orders', component: AllOrdersComponent, canActivate: [AdminGuard]},
   {path: 'verification', component: VerificationComponent, canActivate: [AdminGuard]},
   {path: 'new-order', component: NewOrderComponent, canActivate: [ConsumerGuard]},
+  {path: 'menu', component: MenuComponent, canActivate: [ConsumerGuard]},
   {path: 'previous-orders', component: PreviousOrdersComponent, canActivate: [ConsumerGuard]},
   {path: 'current-order', component: CurrentOrderComponent, canActivate: [DelivererGuard]},
   {path: 'my-orders', component: MyOrdersComponent, canActivate: [DelivererGuard]},

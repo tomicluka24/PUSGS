@@ -14,28 +14,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class AdminController : BaseApiController
+    public class ConsumerController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
 
-        public AdminController(UserManager<AppUser> userManager, IMapper mapper, IProductRepository productRepository)
+        public ConsumerController(UserManager<AppUser> userManager, IMapper mapper, IProductRepository productRepository)
         {
             _userManager = userManager;
             _mapper = mapper;
             _productRepository = productRepository;
         }
 
-        [Authorize(Policy = "RequireAdminRole")]
-        [HttpPost("add-product")]
-        public async Task<ActionResult> AddProduct(AddProductDTO addProductDTO)
+        // [Authorize(Policy = "RequireConsumerRole")]
+        [HttpGet("menu")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync()
         {
-            var product = _mapper.Map<Product>(addProductDTO);
-            _productRepository.AddProduct(product);
+            var products = await _productRepository.GetProductsAsync();
 
-            if (await _productRepository.SaveAllAsync()) return NoContent();
-                return BadRequest("Failed to decline user");
+            return Ok(products);
         }
     }
 }

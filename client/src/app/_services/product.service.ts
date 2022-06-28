@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Product } from '../_models/product';
 import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
   baseUrl = environment.apiUrl;
+  products: Product[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -23,4 +25,17 @@ export class ProductService {
       })
     )
   }
+
+  
+  getProducts() {
+    if (this.products.length > 0) return of(this.products);
+    return this.http.get<Product[]>(this.baseUrl + 'consumer/menu').pipe(
+      map(products => {
+        this.products = products;
+        return products;
+      })
+    )
+  }
+
+
 }

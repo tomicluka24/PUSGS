@@ -1,10 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
@@ -23,10 +25,17 @@ namespace API.Data
         {
             _context.Menu.Add(product);
         }
-        
+
+        public async Task<IEnumerable<Product>> GetProductsAsync()
+        {
+            return await _context.Menu.ToListAsync();
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        
     }
 }

@@ -9,6 +9,7 @@ namespace API.Interfaces
     public interface IProductRepository
     {
         void AddProduct(Product product);
+        Task<IEnumerable<Product>> GetProductsAsync();
         Task<bool> SaveAllAsync();
         
     }

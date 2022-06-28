@@ -29,7 +29,8 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberListComponent } from './members/member-list/member-list.component'
@@ -43,6 +44,7 @@ import {FileUploadModule} from 'ng2-file-upload';
 import { SocialUserDashboardComponent } from './Other_components/social-user-dashboard/social-user-dashboard.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MenuComponent } from './Consumer_components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     TextInputComponent,
     SocialUserDashboardComponent,
     HasRoleDirective,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,6 +91,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatButtonModule,
     MatFormFieldModule,
     MatProgressBarModule,
+    MatTableModule,
     NgxSpinnerModule,
     FileUploadModule,
   ],

@@ -1,0 +1,31 @@
+<h1>Dishes on the menu</h1>
+
+<table mat-table id="table" [dataSource]="products$" class="mat-elevation-z8 products-table">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let product"> {{product.id}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="ingredients">
+      <th mat-header-cell *matHeaderCellDef> Ingredients </th>
+      <td mat-cell *matCellDef="let product"> {{product.ingredients}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price </th>
+      <td id="cena" mat-cell *matCellDef="let product"> {{product.price}} rsd </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
+  <div id="dash">
+    <a mar href="/dashboard">Back to dashboard</a>
+  </div>
