@@ -1,1 +1,35 @@
-<p>add-product works!</p>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="">Fill out the fileds for the new product</h1>
+            <div class="card">
+                <div class="card-body">
+                    <form class="form-horizontal" [formGroup]="addProductForm" (ngSubmit)="addProductForm.valid && addProduct()" autocomplete="off"
+                        method="post" action="#">
+                        <app-text-input [formControl]='addProductForm.controls["name"]' [label]='"Name"'>
+                        </app-text-input>
+                        <app-text-input [formControl]='addProductForm.controls["price"]' type="number" [label]='"Price"'>
+                        </app-text-input>
+                        <app-text-input [formControl]='addProductForm.controls["ingredients"]' [label]='"Ingredients"'>
+                        </app-text-input>
+                        <div class="row" *ngIf="validationErrors.length > 0">
+                            <ul class="text-danger">
+                                <li *ngFor="let error of validationErrors">
+                                    {{error}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <button [disabled]="!addProductForm.valid" type="submit"
+                                class="btn btn-primary btn-lg btn-block register-button">Add product</button>
+                        </div>
+                        <div>
+                            <a routerLink="/dashboard">Go back to dashboard</a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

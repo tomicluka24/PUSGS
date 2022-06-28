@@ -29,6 +29,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberListComponent } from './members/member-list/member-list.component'
@@ -85,6 +86,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     TabsModule.forRoot(),
     MatRippleModule,
     MatButtonModule,
+    MatFormFieldModule,
     MatProgressBarModule,
     NgxSpinnerModule,
     FileUploadModule,

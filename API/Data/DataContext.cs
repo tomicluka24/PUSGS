@@ -19,7 +19,7 @@ namespace API.Data
         public DataContext(DbContextOptions options) : base(options)
         {
         }
-
+        public DbSet<Product> Menu { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             if (!options.IsConfigured)

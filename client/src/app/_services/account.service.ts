@@ -12,7 +12,9 @@ import { environment } from 'src/environments/environment';
 export class AccountService {
   baseUrl = environment.apiUrl;
   private currentUserSource = new ReplaySubject<User>(1);
+
   constructor(private http: HttpClient) { }
+  
   currentUser$ = this.currentUserSource.asObservable();
 
   login(model: any) {

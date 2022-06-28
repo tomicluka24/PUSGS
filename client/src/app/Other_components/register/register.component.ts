@@ -45,9 +45,7 @@ export class RegisterComponent implements OnInit {
       address: new FormControl("", Validators.required),
       photoUrl: new FormControl(""),
       userType: new FormControl("Consumer"),
-    })
-
-    
+    }) 
   }
 
   matchValues(matchTo: string): ValidatorFn {

@@ -64,7 +64,7 @@ namespace API.Controllers
         {
             var user = await _userRepository.GetUserByUsernameAsync(memberUpdateDto.Username);
             var message = new Message(new string[] {memberUpdateDto.Email}, "Delivery App - Profile verification",
-                                      memberUpdateDto.Username + " Your Delivery App profile is verified. You can now start using Application :)");
+                                      memberUpdateDto.Username + " Your Delivery App profile is verified. You can now start with your first delivery :)");
 
             _mapper.Map(memberUpdateDto, user);
 

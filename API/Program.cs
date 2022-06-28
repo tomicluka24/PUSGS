@@ -25,6 +25,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
     builder.Services.AddScoped<ITokenService, TokenService>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IProductRepository, ProductRepository>();
     builder.Services.AddScoped<IPhotoService, PhotoService>();
     builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
     builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
