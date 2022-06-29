@@ -1,0 +1,21 @@
+#price {
+    margin-bottom: 0.4cm;
+}
+
+#button {
+    margin-top: 0.4cm;
+}
+
+#routerlink {
+    margin-left: 16cm;
+    white-space: nowrap;
+}
+
+label {
+    clear:left;
+    padding-right:10px;
+}
+
+#quantity {
+    margin-left: 1cm;
+}

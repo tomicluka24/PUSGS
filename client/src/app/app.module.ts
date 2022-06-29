@@ -30,6 +30,8 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { MatRippleModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
@@ -90,6 +92,8 @@ import { MenuComponent } from './Consumer_components/menu/menu.component';
     MatRippleModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
     MatProgressBarModule,
     MatTableModule,
     NgxSpinnerModule,

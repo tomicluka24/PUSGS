@@ -12,6 +12,8 @@ import { NgForm } from '@angular/forms';
   templateUrl: './member-edit.component.html',
   styleUrls: ['./member-edit.component.css']
 })
+
+
 export class MemberEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
   member: Member;
@@ -48,4 +50,5 @@ export class MemberEditComponent implements OnInit {
     this.user.photoUrl = newValue
     console.log(this.user.photoUrl);
   }
+
 }

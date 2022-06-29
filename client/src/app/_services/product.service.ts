@@ -37,5 +37,14 @@ export class ProductService {
     )
   }
 
+  
+  getProduct(name: string) {
+    const product = this.products.find(x => x.name === name);
+    if (product !== undefined) return of(product);
+    {
+      return this.http.get<Product>(this.baseUrl + 'product/' + name);
+    }
+  }
+
 
 }

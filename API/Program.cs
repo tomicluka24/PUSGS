@@ -26,6 +26,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddScoped<ITokenService, TokenService>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IProductRepository, ProductRepository>();
+    builder.Services.AddScoped<IOrderRepository, OrderRepository>();
     builder.Services.AddScoped<IPhotoService, PhotoService>();
     builder.Services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
     builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>

@@ -20,6 +20,7 @@ namespace API.Data
         {
         }
         public DbSet<Product> Menu { get; set; }
+        public DbSet<Order> Orders { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             if (!options.IsConfigured)

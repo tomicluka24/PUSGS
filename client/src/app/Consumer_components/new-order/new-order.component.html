@@ -1,1 +1,62 @@
-<h1>Place new order or track your current order</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="">Place your order</h1>
+            <div class="card">
+                <div class="card-body">
+                    <form class="form-horizontal" [formGroup]="placeOrderForm" (ngSubmit)="placeOrderForm.valid && placeOrder()" autocomplete="off"
+                        method="post" action="#">
+                        <!-- <app-text-input  [formControl]='placeOrderForm.controls["productName"]' [label]='"Product name"'>
+                        </app-text-input> -->
+                        <mat-form-field id="selectProduct">
+                            <div>
+                                <mat-label>Product</mat-label>
+                                <mat-select formControlName="productName" name="productName">
+                                    <ng-container *ngFor="let product of (products$ | async)" name="productName">
+                                     <mat-option [value]="product.name" name="fieldName" ngDefaultControl [formControl]='placeOrderForm.controls["productName"]'>{{product.name}}</mat-option>
+                                    </ng-container>
+                                  </mat-select>
+                            </div>
+
+
+
+                        </mat-form-field>
+
+                        <mat-form-field id="quantity">
+                            <div id="quantity">
+                                <mat-label>Quantity</mat-label>
+                                <input type="number" [formControl]='placeOrderForm.controls["quantity"]' matInput>
+                            </div>
+                        </mat-form-field>
+                                
+                        <app-text-input [formControl]='placeOrderForm.controls["deliveryAddress"]' [label]='"Delivery Address"'>
+                        </app-text-input>
+                        <app-text-input [formControl]='placeOrderForm.controls["comment"]' [label]='"Comment"'>
+                        </app-text-input>
+                        
+                        <div class="row" *ngIf="validationErrors.length > 0">
+                            <ul class="text-danger">
+                                <li *ngFor="let error of validationErrors">
+                                    {{error}}
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div name="price" id="price">
+                            <label id="label">Total price: </label>
+                        </div>
+
+                        <div id="button" class="form-group">
+                            <button [disabled]="!placeOrderForm.valid" type="submit"
+                                class="btn btn-primary btn-lg btn-block place-order-button">Order now!</button>
+                        </div>
+                        <div id="routerlink">
+                            <a routerLink="/dashboard">Go back to dashboard</a>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
