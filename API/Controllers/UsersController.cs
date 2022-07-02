@@ -60,13 +60,13 @@ namespace API.Controllers
         }
 
         [HttpPut("VerifyUser")]
-        public async Task<ActionResult> VerifyUser(MemberUpdateDTO memberUpdateDto)
+        public async Task<ActionResult> VerifyUser(MemberVerifyDTO memberVerifyDTO)
         {
-            var user = await _userRepository.GetUserByUsernameAsync(memberUpdateDto.Username);
-            var message = new Message(new string[] {memberUpdateDto.Email}, "Delivery App - Profile verification",
-                                      memberUpdateDto.Username + " Your Delivery App profile is verified. You can now start with your first delivery :)");
+            var user = await _userRepository.GetUserByUsernameAsync(memberVerifyDTO.Username);
+            var message = new Message(new string[] {memberVerifyDTO.Email}, "Delivery App - Profile verification",
+                                      memberVerifyDTO.Username + " Your Delivery App profile is verified. You can now start with your first delivery :)");
 
-            _mapper.Map(memberUpdateDto, user);
+            _mapper.Map(memberVerifyDTO, user);
 
             _userRepository.Update(user);
 
@@ -77,12 +77,27 @@ namespace API.Controllers
             return BadRequest("Failed to validate user");
         }
 
-        [HttpPut("DeclineUser")]
-        public async Task<ActionResult> DeclineUser(MemberUpdateDTO memberUpdateDto)
+        [HttpPut("AcceptOrder")]
+        public async Task<ActionResult> AcceptOrder(MemberAcceptOrderDTO memberAcceptOrderDTO)
         {
-            var user = await _userRepository.GetUserByUsernameAsync(memberUpdateDto.Username);
+            var user = await _userRepository.GetUserByUsernameAsync(memberAcceptOrderDTO.Username);
 
-            _mapper.Map(memberUpdateDto, user);
+            _mapper.Map(memberAcceptOrderDTO, user);
+
+            _userRepository.Update(user);
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to accept order");
+        }
+
+
+        [HttpPut("DeclineUser")]
+        public async Task<ActionResult> DeclineUser(MemberVerifyDTO memberVerifyDTO)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(memberVerifyDTO.Username);
+
+            _mapper.Map(memberVerifyDTO, user);
 
             _userRepository.Update(user);
 

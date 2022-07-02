@@ -3,6 +3,7 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220630221705_Database_Hide_With_Builder")]
+    partial class Database_Hide_With_Builder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.3");
@@ -50,6 +52,9 @@ namespace API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Address")
                         .HasColumnType("TEXT");
 
@@ -76,6 +81,9 @@ namespace API.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("TEXT");
 
@@ -90,11 +98,20 @@ namespace API.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("PhotoUrl")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -218,9 +235,6 @@ namespace API.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("TEXT");
 
@@ -228,9 +242,6 @@ namespace API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LockoutEnabled")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
@@ -245,24 +256,15 @@ namespace API.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>

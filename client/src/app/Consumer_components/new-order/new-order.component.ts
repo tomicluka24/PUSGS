@@ -11,7 +11,11 @@ import { ProductService } from 'src/app/_services/product.service';
 import { take } from 'rxjs/operators';
 import { MembersService } from 'src/app/_services/members.service';
 import { Member } from 'src/app/_models/member';
+import { MatSelectChange } from '@angular/material/select';
+import { Subscription } from 'rxjs';
+import { NavigationStart, Router } from '@angular/router';
 
+export let browserRefresh = false;
 @Component({
   selector: 'app-new-order',
   templateUrl: './new-order.component.html',
@@ -25,19 +29,46 @@ export class NewOrderComponent implements OnInit {
   products$ : Observable<Product[]>;
   product: Product;
   order: Order;
+  price: number;
+  orders: Order[];
+  subscription: Subscription;
+  currentOrder: Order;
 
   constructor(private accountService: AccountService,
     private membersService: MembersService, 
     private productService: ProductService,
     private orderService: OrdersService, 
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private router: Router) 
+    {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-   }
+    this.subscription = router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        browserRefresh = !router.navigated;
+      }
+      else
+      {
+        if(localStorage.getItem('currentOrderId') != null)
+        {
+          console.log(localStorage.getItem("currentOrderId"));
+          this.orderService.getOrder(localStorage.getItem("currentOrderId")).subscribe(currentOrder => {
+            this.currentOrder = currentOrder;
+            //console.log(this.currentOrder);
+          });
+        }
+      }
+    });
+    }
+  
+    ngOnDestroy() {
+      this.subscription.unsubscribe();
+    }
 
   ngOnInit(): void {
     this.loadMember();
     this.products$ = this.productService.getProducts();
     this.initializeForm();
+    
   }
 
     
@@ -51,17 +82,22 @@ export class NewOrderComponent implements OnInit {
     this.placeOrderForm = new FormGroup(
     {
       productName: new FormControl("", Validators.required),
-      quantity: new FormControl(Validators.required),
+      quantity: new FormControl("", Validators.required),
       deliveryAddress: new FormControl("", Validators.required),
       comment: new FormControl(""),
     });
-  }
+    }
 
-  placeOrder() {
-    this.productService.getProduct(this.placeOrderForm.value.productName).subscribe(product => {
+  selected(change: MatSelectChange) {
+    console.log();
+    this.productService.getProduct(change.value).subscribe(product => {
       this.product = product;
     })
-  
+
+    this.price = this.product.price;
+  }
+    
+  placeOrder() {
     this.order = this.placeOrderForm.value;
     this.order.productId = this.product.id;
     this.order.consumerId = this.member.id;
@@ -69,12 +105,21 @@ export class NewOrderComponent implements OnInit {
     this.order.accepted = "False";
     this.order.delivererId = 1; // assign it to admin so it passes foreign key constraint => to be updated after accepting by deliverer
 
-    console.log(this.order);
     this.orderService.placeOrder(this.placeOrderForm.value).subscribe(response => {
-      this.toastr.success('New order placed successfully. Wait until deliverer accepts it.');
+      this.toastr.success('New order placed successfully');
     }, error => {
       this.validationErrors = error;      
     })
-  
+
+    this.orderService.getOrders().subscribe(data => {
+    this.orders = data;
+    this.member.currentOrderId = this.orders[this.orders.length - 1].id;
+
+      this.membersService.updateMember(this.member).subscribe(() => {
+        this.toastr.info('Order will start when deliverer accepts it.');
+        localStorage.setItem('currentOrderId', this.member.currentOrderId.toString());
+      })
+   })
+     
   }  
 }

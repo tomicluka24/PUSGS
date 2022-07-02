@@ -50,6 +50,16 @@ export class MembersService {
     )
   }
 
+  acceptOrder(member: Member) {
+    return this.http.put(this.baseUrl + 'users/AcceptOrder', member).pipe(
+      map(() => {
+        const index = this.members.indexOf(member);
+        this.members[index] = member;
+        console.log(this.members[index]);
+      })
+    )
+  }
+
   declineMember(member: Member) {
     return this.http.put(this.baseUrl + 'users/DeclineUser', member).pipe(
       map(() => {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
@@ -30,9 +31,19 @@ namespace API.Data
             return await _context.Orders.ToListAsync();
         }
 
+        public async Task<Order> GetOrderByIdAsync(string id)
+        {
+            return  await _context.Orders.FirstOrDefaultAsync(x => x.Id.ToString() == id);
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
+        }
+
+        public void Update(Order order)
+        {
+            _context.Entry(order).State = EntityState.Modified;
         }
     }
 }

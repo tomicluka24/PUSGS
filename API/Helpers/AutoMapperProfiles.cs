@@ -15,11 +15,14 @@ namespace API.Helpers
             CreateMap<AppUser, MemberDTO>();
             CreateMap<RegisterDTO, AppUser>();
             CreateMap<MemberUpdateDTO, AppUser>();
+            CreateMap<MemberVerifyDTO, AppUser>();
+            CreateMap<MemberAcceptOrderDTO, AppUser>();
             CreateMap<AddProductDTO, Product>();
             CreateMap<Product, AddProductDTO>();
             CreateMap<NewOrderDTO, Order>();
             CreateMap<Order, NewOrderDTO>();
+            CreateMap<Order, AcceptedOrderDTO>();
+            CreateMap<AcceptedOrderDTO, Order>();
         }
-
     }
 }

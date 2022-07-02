@@ -29,7 +29,7 @@ export class OrdersService {
   
   getOrders() {
     if (this.orders.length > 0) return of(this.orders);
-    return this.http.get<Order[]>(this.baseUrl + 'admin/orders').pipe(
+    return this.http.get<Order[]>(this.baseUrl + 'admin/all-orders').pipe(
       map(orders => {
         this.orders = orders;
         return orders;
@@ -37,5 +37,33 @@ export class OrdersService {
     )
   }
 
+  getNewOrders() {
+    if (this.orders.length > 0) return of(this.orders);
+    return this.http.get<Order[]>(this.baseUrl + 'deliverer/new-orders').pipe(
+      map(orders => {
+        this.orders = orders;
+        return orders;
+      })
+    )
+  }
+
+  getOrder(id: string) {
+    const order = this.orders.find(x => x.id.toString() === id);
+    //  console.log(order);
+    if (order !== undefined) return of(order);
+    {
+      console.log("aaaaaaaaaaaaaaaaaaaaa");
+      return this.http.get<Order>(this.baseUrl + 'consumer/current-order/' + id);
+    }
+  }
+
+  acceptOrder(order: Order) {
+    return this.http.put(this.baseUrl + 'deliverer/AcceptOrder', order).pipe(
+      map(() => {
+        const index = this.orders.indexOf(order);
+        this.orders[index] = order;
+      })
+    )
+  }
 
 }

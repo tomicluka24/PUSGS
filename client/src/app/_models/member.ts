@@ -9,4 +9,5 @@ export interface Member {
     email: string;
     photoUrl: string; 
     verified: string; 
+    currentOrderId: number;
   }

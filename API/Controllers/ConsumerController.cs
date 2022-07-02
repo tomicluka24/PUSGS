@@ -48,5 +48,11 @@ namespace API.Controllers
             if (await _orderRepository.SaveAllAsync()) return NoContent();
                 return BadRequest("Failed to place new order");
         }
+
+        [HttpGet("current-order/{id}")]
+        public async Task<ActionResult<Order>> GetOrder(string id)
+        {
+            return await _orderRepository.GetOrderByIdAsync(id);
+        }
     }
 }

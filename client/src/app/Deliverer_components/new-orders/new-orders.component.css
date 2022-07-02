@@ -1,0 +1,55 @@
+.orders-table {
+    width: 200%;
+}
+
+.mat-column-id {
+    width: 1cm;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+}
+
+.mat-column-consumerId {
+    width: 2cm;
+    text-align: center;
+    padding-left: 24px;
+}
+
+.mat-column-productName {
+    width: 6cm;
+    text-align: center;
+}
+
+.mat-column-quantity {
+    width: 32px;
+    text-align: center;
+}
+
+.mat-column-deliveryAddress {
+    width: 32px;
+    text-align: center;
+}
+
+.mat-column-comment {
+    width: 32px;
+    text-align: center;
+}
+
+.mat-column-price {
+    width: 32px;
+    text-align: center;
+}
+
+.mat-column-accept {
+    width: 32px;
+    text-align: center;
+}
+
+#button1 {
+    font-size: small;
+    height: 1cm;
+}
+
+#table {
+    margin-bottom: 1cm;
+}

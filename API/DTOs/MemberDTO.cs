@@ -19,6 +19,7 @@ namespace API.DTOs
         public string Email { get; set; }
         public string PhotoUrl { get; set; }
         public string Verified { get; set; }
+        public int CurrentOrderId { get; set; } 
 
     }
 }

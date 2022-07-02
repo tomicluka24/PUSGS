@@ -41,7 +41,7 @@ const routes: Routes = [
   {path: 'new-order', component: NewOrderComponent, canActivate: [ConsumerGuard]},
   {path: 'menu', component: MenuComponent, canActivate: [ConsumerGuard]},
   {path: 'previous-orders', component: PreviousOrdersComponent, canActivate: [ConsumerGuard]},
-  {path: 'current-order', component: CurrentOrderComponent, canActivate: [DelivererGuard]},
+  {path: 'current-order/{id}', component: CurrentOrderComponent, canActivate: [DelivererGuard, ConsumerGuard]},
   {path: 'my-orders', component: MyOrdersComponent, canActivate: [DelivererGuard]},
   {path: 'new-orders', component: NewOrdersComponent, canActivate: [DelivererGuard]},
   {path: 'social-user-dashboard', component: SocialUserDashboardComponent},

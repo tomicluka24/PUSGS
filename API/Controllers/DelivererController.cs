@@ -14,14 +14,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    public class AdminController : BaseApiController
+    public class DelivererController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
         private readonly IOrderRepository _orderRepository;
 
-        public AdminController(UserManager<AppUser> userManager, IMapper mapper, IProductRepository productRepository, IOrderRepository orderRepository)
+        public DelivererController(UserManager<AppUser> userManager, IMapper mapper, IProductRepository productRepository, IOrderRepository orderRepository)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -29,26 +29,29 @@ namespace API.Controllers
             _orderRepository = orderRepository;
         }
 
-        [Authorize(Policy = "RequireAdminRole")]
-        [HttpPost("add-product")]
-        public async Task<ActionResult> AddProduct(AddProductDTO addProductDTO)
-        {
-            var product = _mapper.Map<Product>(addProductDTO);
-            _productRepository.AddProduct(product);
-
-            if (await _productRepository.SaveAllAsync()) return NoContent();
-                return BadRequest("Failed to decline user");
-        }
-
-        // [Authorize(Policy = "RequireConsumerRole")]
-        [HttpGet("all-orders")]
+        [HttpGet("new-orders")]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrderssAsync()
         {
             var orders = await _orderRepository.GetOrdersAsync();
+            
+            var newOrders = orders.Where(o => o.Accepted == "False");
+            
 
-            return Ok(orders);
+            return Ok(newOrders);
         }
 
+        [HttpPut("AcceptOrder")]
+        public async Task<ActionResult> AcceptOrder(AcceptedOrderDTO acceptedOrderDto)
+        {
+            var order = await _orderRepository.GetOrderByIdAsync(acceptedOrderDto.Id.ToString());
 
+            _mapper.Map(acceptedOrderDto, order);
+
+            _orderRepository.Update(order);
+
+            if (await _orderRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to validate user");
+        }
     }
 }

@@ -33,6 +33,15 @@ namespace API.Data
         {
                 base.OnModelCreating(builder);        
 
+                builder.Entity<AppUser>().Ignore(c => c.AccessFailedCount)
+                                           .Ignore(c=> c.LockoutEnabled)
+                                           .Ignore(c=>c.LockoutEnabled)
+                                           .Ignore(c=>c.PhoneNumber)
+                                           .Ignore(c=>c.PhoneNumberConfirmed)
+                                           .Ignore(c=>c.LockoutEnabled)
+                                           .Ignore(c=>c.TwoFactorEnabled)
+                                           .Ignore(c=>c.TwoFactorEnabled);
+                builder.Entity<IdentityUser>().ToTable("Users");
                 builder.Entity<AppUser>()
                 .HasMany(ur => ur.UserRoles)
                 .WithOne(u => u.User)
