@@ -15,6 +15,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { Subscription } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
 
+
 export let browserRefresh = false;
 @Component({
   selector: 'app-new-order',
@@ -33,6 +34,7 @@ export class NewOrderComponent implements OnInit {
   orders: Order[];
   subscription: Subscription;
   currentOrder: Order;
+  delivery: number = 250;
 
   constructor(private accountService: AccountService,
     private membersService: MembersService, 
@@ -101,7 +103,7 @@ export class NewOrderComponent implements OnInit {
     this.order = this.placeOrderForm.value;
     this.order.productId = this.product.id;
     this.order.consumerId = this.member.id;
-    this.order.price = this.product.price * this.placeOrderForm.value.quantity;
+    this.order.price = this.product.price * this.placeOrderForm.value.quantity + this.delivery;
     this.order.accepted = "False";
     this.order.delivererId = 1; // assign it to admin so it passes foreign key constraint => to be updated after accepting by deliverer
 
@@ -113,8 +115,8 @@ export class NewOrderComponent implements OnInit {
 
     this.orderService.getOrders().subscribe(data => {
     this.orders = data;
-    this.member.currentOrderId = this.orders[this.orders.length - 1].id;
-
+    this.member.currentOrderId = this.orders[this.orders.length-1].id;
+    console.log(this.orders);
       this.membersService.updateMember(this.member).subscribe(() => {
         this.toastr.info('Order will start when deliverer accepts it.');
         localStorage.setItem('currentOrderId', this.member.currentOrderId.toString());

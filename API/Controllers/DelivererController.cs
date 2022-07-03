@@ -29,6 +29,7 @@ namespace API.Controllers
             _orderRepository = orderRepository;
         }
 
+        [Authorize(Policy = "RequireDelivererRole")]
         [HttpGet("new-orders")]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrderssAsync()
         {
@@ -40,6 +41,7 @@ namespace API.Controllers
             return Ok(newOrders);
         }
 
+        [Authorize(Policy = "RequireDelivererRole")]
         [HttpPut("AcceptOrder")]
         public async Task<ActionResult> AcceptOrder(AcceptedOrderDTO acceptedOrderDto)
         {
@@ -52,6 +54,13 @@ namespace API.Controllers
             if (await _orderRepository.SaveAllAsync()) return NoContent();
 
             return BadRequest("Failed to validate user");
+        }
+        
+        [Authorize(Policy = "RequireDelivererRole")]
+        [HttpGet("current-order/{id}")]
+        public async Task<ActionResult<Order>> GetOrder(string id)
+        {
+            return await _orderRepository.GetOrderByIdAsync(id);
         }
     }
 }

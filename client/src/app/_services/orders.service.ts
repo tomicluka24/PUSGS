@@ -52,10 +52,18 @@ export class OrdersService {
     //  console.log(order);
     if (order !== undefined) return of(order);
     {
-      console.log("aaaaaaaaaaaaaaaaaaaaa");
       return this.http.get<Order>(this.baseUrl + 'consumer/current-order/' + id);
     }
   }
+
+  getOrderAsDeliverer(id: string) {
+    const order = this.orders.find(x => x.id.toString() === id);
+    if (order !== undefined) return of(order);
+    {
+      return this.http.get<Order>(this.baseUrl + 'deliverer/current-order/' + id);
+    }
+  }
+
 
   acceptOrder(order: Order) {
     return this.http.put(this.baseUrl + 'deliverer/AcceptOrder', order).pipe(

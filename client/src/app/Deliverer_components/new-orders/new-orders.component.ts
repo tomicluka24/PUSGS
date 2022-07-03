@@ -43,7 +43,6 @@ export class NewOrdersComponent implements OnInit {
 
     this.ordersService.getNewOrders().subscribe(orders => {
       this.orders = orders
-      console.log(this.orders);
     });
       
   }
@@ -54,8 +53,6 @@ export class NewOrdersComponent implements OnInit {
       this.order = order;
     });
     
-    console.log(id);
-    console.log(this.order);
     this.order.accepted = "True";
     this.order.delivererId = this.member.id;
     this.ordersService.acceptOrder(this.order).subscribe(() => {
@@ -72,7 +69,10 @@ export class NewOrdersComponent implements OnInit {
   }
 
   loadMember() {
-    this.memberService.getMember(this.user.username).subscribe(member => {this.member = member;});
+    this.memberService.getMember(this.user.username).subscribe(member => {
+      this.member = member;      
+    });
+
   }
 
 }

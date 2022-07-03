@@ -1,14 +1,46 @@
-<div *ngIf="member">
-    <div style="font-weight: bold; white-space: pre-line" *ngIf="member.verified === 'False'">
+<div *appHasRole="['Deliverer']">
+    <div style="font-weight: bold; white-space: pre-line" *ngIf="member?.verified === 'False'">
         Your verification process is not finished yet.  <br>
         Please follow the <a routerLink="/dashboard"> link </a> to go back to dashboard.
     </div>
 </div>
 
 
-<div *ngIf="member">
-    <div style="color: red; font-weight: bold; white-space: pre-line" *ngIf="member.verified === 'Declined'">
+<div *appHasRole="['Deliverer']">
+    <div style="color: red; font-weight: bold; white-space: pre-line" *ngIf="member?.verified === 'Declined'">
         Your verification was declined <br>
         Please follow the <a routerLink="/dashboard"> link </a> to go back to dashboard.
     </div>
 </div>
+
+<div *appHasRole="['Deliverer']">
+    <div class="row justify-content-left" style="font-weight: bold; white-space: pre-line" *ngIf="member?.verified === 'True'">
+        <h1>Your current active order details:</h1>
+        <div>
+            <p>Order id: {{order?.id}}</p>
+            <p>Consumer id: {{order?.consumerId}}</p>
+            <p>Deliverer id: {{order?.delivererId}}</p>
+            <p>Product id: {{order?.productId}}</p>
+            <p>Quantity: {{order?.quantity}}</p>
+            <p>Delivery address: {{order?.deliveryAddress}}</p>
+            <p>Comment: {{order?.comment}}</p>
+            <p>Total price: {{order?.price}}</p>
+        </div>
+    </div>
+    
+    <div>
+        <span class="count-digit">3</span>
+        <span class="count-digit">0</span>
+        <span class="separator">:</span>
+        <span class="count-digit">0</span>
+        <span class="count-digit">0</span>
+     </div>
+     
+</div>
+
+<div>
+    <p>
+        Please follow the <a routerLink="/dashboard"> link </a> to go back to dashboard.
+    </p>
+</div>
+

@@ -41,6 +41,7 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { CountdownModule } from 'ngx-countdown';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import {FileUploadModule} from 'ng2-file-upload';
 import { SocialUserDashboardComponent } from './Other_components/social-user-dashboard/social-user-dashboard.component';
@@ -98,6 +99,7 @@ import { MenuComponent } from './Consumer_components/menu/menu.component';
     MatTableModule,
     NgxSpinnerModule,
     FileUploadModule,
+    CountdownModule,
   ],
   providers: [
     {

@@ -38,7 +38,7 @@ namespace API.Controllers
             return Ok(products);
         }
 
-        // [Authorize(Policy = "RequireConsumerRole")]
+        [Authorize(Policy = "RequireConsumerRole")]
         [HttpPost("place-order")]
         public async Task<ActionResult> PlaceOrder(NewOrderDTO newOrderDTO)
         {
@@ -49,6 +49,7 @@ namespace API.Controllers
                 return BadRequest("Failed to place new order");
         }
 
+        [Authorize(Policy = "RequireConsumerRole")]
         [HttpGet("current-order/{id}")]
         public async Task<ActionResult<Order>> GetOrder(string id)
         {

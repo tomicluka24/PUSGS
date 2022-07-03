@@ -1,5 +1,5 @@
-<div *ngIf="member" class="container">
-    <div *ngIf="member.currentOrderId === 0" class="row justify-content-center">
+<div *appHasRole="['Consumer']" class="container">
+    <div *ngIf="member?.currentOrderId === 0" class="row justify-content-center">
         <div class="col-md-8">
             <h1 class="">Place your order</h1>
             <div class="card">
@@ -38,10 +38,11 @@
                             </ul>
                         </div>
 
-                        <mat-form-field id="totalPrice">
-                            <div id="totalPrice">
-                                <mat-label>Total price: </mat-label>
-                                <input readonly type="number" [value]="this.placeOrderForm.value.quantity * this.price" matInput> 
+                        <mat-form-field style="width: 5.5cm;">
+                            <div id="totalPrice" style="margin-bottom: 0.3cm; display:inline-block;">
+                                <mat-label >Total price:</mat-label> <br>
+                                <mat-label style="font-size: small;"> (*250 rsd delivery costs included) </mat-label>
+                                <input readonly type="number" [value]="this.placeOrderForm.value.quantity * this.price + this.delivery" matInput> 
                             </div>
                         </mat-form-field>
                     
@@ -60,17 +61,37 @@
     </div>
 </div>
 
-<div *ngIf="member" class="container">
-    <div *ngIf="(member.currentOrderId !== 0 && currentOrder.delivererId === 1)" class="row justify-content-center">
-        <div  class="col-md-8">
+<div *appHasRole="['Consumer']" class="container">
+    <div  class="row justify-content-left">
+        <div  *ngIf="(member?.currentOrderId !== 0 && currentOrder?.delivererId === 1)"  class="col-md-8">
             <h1 class="">Your order is ready.</h1>
             <h2> Wait until deliverer accepts your order </h2>
+            <div id="dash">
+                <a mar href="/dashboard">Back to dashboard</a>
+              </div>
         </div>
-    </div>
 
-    <div *ngIf="(member.currentOrderId !== 0 && currentOrder.delivererId > 1)" class="row justify-content-center">
-        <div *ngIf="" class="col-md-8">
+        <div  *ngIf="(member?.currentOrderId !== 0 && currentOrder?.delivererId !== 1)"  class="col-md-8">
             <h1> Your order is accepted and deliverer is on it's way.</h1>
+            <h2> Your current active order details:  </h2>
+            <div>
+                <p>Id: {{currentOrder?.id}}</p>
+                <p>Consumer id: {{currentOrder?.consumerId}}</p>
+                <p>Deliverer id: {{currentOrder?.delivererId}}</p>
+                <p>Product id: {{currentOrder?.productId}}</p>
+                <p>Quantity: {{currentOrder?.quantity}}</p>
+                <p>Delivery address: {{currentOrder?.deliveryAddress}}</p>
+                <p>Comment: {{currentOrder?.comment}}</p>
+                <p>Total price: {{currentOrder?.price}}</p>
+                <p>
+                    Your order will be delivered in:
+                    <!-- <countdown [config]="{leftTime: 30}"></countdown> -->
+                </p>
+            </div>
+            <div id="dash">
+                <a mar href="/dashboard">Back to dashboard</a>
+            </div>
         </div>
+        
     </div>
 </div>
