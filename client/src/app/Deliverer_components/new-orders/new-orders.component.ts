@@ -12,6 +12,9 @@ import { OrdersService } from 'src/app/_services/orders.service';
 import { Order } from 'src/app/_models/order';
 import { ToastrService } from 'ngx-toastr';
 
+
+const KEY = 'time'
+
 @Component({
   selector: 'app-new-orders',
   templateUrl: './new-orders.component.html',
@@ -23,6 +26,9 @@ export class NewOrdersComponent implements OnInit {
   photoUrl: string;
   orders: Order[];
   order: Order;
+  deliveryStartedTime: number;
+  randomDeliveryTime: number;
+
 
   displayedColumns: string[] = ['id', 'consumerId', 'productName', 'quantity', 'deliveryAddress', 'comment', 'price', 'accept'];
 
@@ -64,8 +70,12 @@ export class NewOrdersComponent implements OnInit {
     this.memberService.acceptOrder(this.member).subscribe(() => {
       this.toastr.success('Your current order id successfully set to ' + this.order.id);
     })
-   
-    // window.location.reload();
+  
+    this.randomDeliveryTime = this.getRandomInt(300, 1800);
+    this.deliveryStartedTime = Date.now() / 1000; 
+    localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'Time', this.randomDeliveryTime.toString());
+    localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'StartedTime', this.deliveryStartedTime.toString());
+    localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'FirstTime', 'True');
   }
 
   loadMember() {
@@ -73,6 +83,12 @@ export class NewOrdersComponent implements OnInit {
       this.member = member;      
     });
 
+  }
+
+  getRandomInt(min: number, max: number) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
   }
 
 }

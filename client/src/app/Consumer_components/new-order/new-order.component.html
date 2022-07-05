@@ -41,7 +41,7 @@
                         <mat-form-field style="width: 5.5cm;">
                             <div id="totalPrice" style="margin-bottom: 0.3cm; display:inline-block;">
                                 <mat-label >Total price:</mat-label> <br>
-                                <mat-label style="font-size: small;"> (*250 rsd delivery costs included) </mat-label>
+                                <mat-label style="color: red; font-size: small;"> (*250 rsd delivery costs included) </mat-label>
                                 <input readonly type="number" [value]="this.placeOrderForm.value.quantity * this.price + this.delivery" matInput> 
                             </div>
                         </mat-form-field>
@@ -62,34 +62,36 @@
 </div>
 
 <div *appHasRole="['Consumer']" class="container">
-    <div  class="row justify-content-left">
-        <div  *ngIf="(member?.currentOrderId !== 0 && currentOrder?.delivererId === 1)"  class="col-md-8">
-            <h1 class="">Your order is ready.</h1>
-            <h2> Wait until deliverer accepts your order </h2>
-            <div id="dash">
-                <a mar href="/dashboard">Back to dashboard</a>
-              </div>
-        </div>
-
-        <div  *ngIf="(member?.currentOrderId !== 0 && currentOrder?.delivererId !== 1)"  class="col-md-8">
-            <h1> Your order is accepted and deliverer is on it's way.</h1>
-            <h2> Your current active order details:  </h2>
-            <div>
-                <p>Id: {{currentOrder?.id}}</p>
-                <p>Consumer id: {{currentOrder?.consumerId}}</p>
-                <p>Deliverer id: {{currentOrder?.delivererId}}</p>
-                <p>Product id: {{currentOrder?.productId}}</p>
-                <p>Quantity: {{currentOrder?.quantity}}</p>
-                <p>Delivery address: {{currentOrder?.deliveryAddress}}</p>
-                <p>Comment: {{currentOrder?.comment}}</p>
-                <p>Total price: {{currentOrder?.price}}</p>
-                <p>
-                    Your order will be delivered in:
-                    <!-- <countdown [config]="{leftTime: 30}"></countdown> -->
-                </p>
+    <div *ngIf="member?.currentOrderId !== 0" class="row justify-content-left">
+        <div *ngIf="order">
+            <div *ngIf="order?.delivererId !== 1"  class="col-md-10">
+                <h1 style="display: inline-block;"> Your order is accepted and deliverer is on it's way.</h1>
+                <h2> Your current active order details:  </h2>
+                <div>
+                    <p>Id: {{order?.id}}</p>
+                    <p>Consumer id: {{order?.consumerId}}</p>
+                    <p>Deliverer id: {{order?.delivererId}}</p>
+                    <p>Product id: {{order?.productId}}</p>
+                    <p>Quantity: {{order?.quantity}}</p>
+                    <p>Delivery address: {{order?.deliveryAddress}}</p>
+                    <p>Comment: {{order?.comment}}</p>
+                    <p>Total price: {{order?.price}}</p>
+                    <p>
+                        Your order will be delivered in:
+                        <countdown #countdown style="font-weight: bold;"  [config]="{leftTime: deliveryTime, format: 'mm:ss', notify: 0}"></countdown> 
+                    </p>
+                </div>
+                <div id="dash">
+                    <a mar href="/dashboard">Back to dashboard</a>
+                </div>
             </div>
-            <div id="dash">
-                <a mar href="/dashboard">Back to dashboard</a>
+            
+            <div *ngIf="order?.delivererId === 1"  class="col-md-10">
+                <h1 class="">Your order is ready.</h1>
+                <h2> Wait until deliverer accepts your order </h2>
+                <div id="dash">
+                    <a mar href="/dashboard">Back to dashboard</a>
+                </div>
             </div>
         </div>
         

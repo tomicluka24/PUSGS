@@ -14,15 +14,16 @@ import { Member } from 'src/app/_models/member';
 import { MatSelectChange } from '@angular/material/select';
 import { Subscription } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
-
+import { CountdownEvent } from 'ngx-countdown';
 
 export let browserRefresh = false;
 @Component({
   selector: 'app-new-order',
   templateUrl: './new-order.component.html',
-  styleUrls: ['./new-order.component.css']
+  styleUrls: ['./new-order.component.css'],
 })
 export class NewOrderComponent implements OnInit {
+  
   user: User;
   member: Member;
   placeOrderForm: FormGroup;
@@ -35,6 +36,12 @@ export class NewOrderComponent implements OnInit {
   subscription: Subscription;
   currentOrder: Order;
   delivery: number = 250;
+  deliveryTime: number;
+  loadPageTime: number;
+  deliveryStartedTime: number;
+  currentTime: number;
+
+
 
   constructor(private accountService: AccountService,
     private membersService: MembersService, 
@@ -44,39 +51,81 @@ export class NewOrderComponent implements OnInit {
     private router: Router) 
     {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-    this.subscription = router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        browserRefresh = !router.navigated;
+        // if(localStorage.getItem('currentOrderId') != null)
+        // {
+        //   this.orderService.getOrder(localStorage.getItem("currentOrderId")).subscribe(currentOrder => {
+        //     this.currentOrder = currentOrder;
+        //     console.log(this.currentOrder);
+        //     this.deliveryStartedTime = +localStorage.getItem('delivery' + currentOrder.id + 'StartedTime');
+        //     this.loadPageTime = Date.now()/1000;
+        //     this.deliveryTime = +localStorage.getItem('delivery'+this.currentOrder.id+'Time');
+        //     var firstTime =  localStorage.getItem('delivery' + this.currentOrder.id + 'FirstTime');
+     
+        //     if(firstTime != "True") //if not first time loaded, take lastTimeLoaded and update lastTime loaded
+        //     {
+        //       var lastTimeLoaded = +localStorage.getItem('delivery' + this.currentOrder.id + 'LastTime');
+        //       this.deliveryTime = this.deliveryTime - (this.loadPageTime - lastTimeLoaded);
+        //       localStorage.setItem('delivery' + this.currentOrder.id + 'LastTime', (Date.now()/1000).toString())
+        //     }
+        //     else // page loaded first time so take startedTime and place lastTimeLoaded
+        //     {
+        //       this.deliveryTime = this.deliveryTime - (this.loadPageTime - this.deliveryStartedTime);
+        //       localStorage.setItem('delivery' + this.currentOrder.id + 'LastTime', (Date.now()/1000).toString());
+        //       localStorage.setItem('delivery' + this.currentOrder.id + 'FirstTime', 'False');
+        //     }
+     
+        //     localStorage.setItem('delivery' + this.currentOrder.id + 'Time', this.deliveryTime.toString());
+        //   });
+        // }
       }
-      else
-      {
-        if(localStorage.getItem('currentOrderId') != null)
-        {
-          console.log(localStorage.getItem("currentOrderId"));
-          this.orderService.getOrder(localStorage.getItem("currentOrderId")).subscribe(currentOrder => {
-            this.currentOrder = currentOrder;
-            //console.log(this.currentOrder);
-          });
-        }
-      }
-    });
-    }
   
-    ngOnDestroy() {
-      this.subscription.unsubscribe();
-    }
+    // ngOnDestroy() {
+    //   this.subscription.unsubscribe();
+    // }
 
   ngOnInit(): void {
     this.loadMember();
     this.products$ = this.productService.getProducts();
     this.initializeForm();
-    
   }
 
     
   loadMember() {
     this.membersService.getMember(this.user.username).subscribe(member => {
-      this.member = member})
+      this.member = member;
+      if (this.member.currentOrderId != 0)
+      {
+        this.loadOrder();
+      }
+    })
+
+  }
+
+
+  loadOrder() {
+    this.orderService.getOrder(this.member.currentOrderId.toString()).subscribe(order => {
+      this.order = order;
+       
+       this.deliveryStartedTime = +localStorage.getItem(this.order.delivererId + 'delivery' + order.id + 'StartedTime');
+       this.loadPageTime = Date.now()/1000;
+       this.deliveryTime = +localStorage.getItem(this.order.delivererId + 'delivery'+this.order.id+'Time');
+       var firstTime =  localStorage.getItem(this.order.delivererId + 'delivery' + this.order.id + 'FirstTime');
+
+       if(firstTime != "True") //if not first time loaded, take lastTimeLoaded and update lastTime loaded
+       {
+         var lastTimeLoaded = +localStorage.getItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime');
+         this.deliveryTime = this.deliveryTime - (this.loadPageTime - lastTimeLoaded);
+         localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString())
+       }
+       else // page loaded first time so take startedTime and place lastTimeLoaded
+       {
+         this.deliveryTime = this.deliveryTime - (this.loadPageTime - this.deliveryStartedTime);
+         localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString());
+         localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'FirstTime', 'False');
+       }
+
+       localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'Time', this.deliveryTime.toString()); 
+    });
   }
 
 
@@ -91,14 +140,14 @@ export class NewOrderComponent implements OnInit {
     }
 
   selected(change: MatSelectChange) {
-    console.log();
     this.productService.getProduct(change.value).subscribe(product => {
       this.product = product;
     })
 
     this.price = this.product.price;
   }
-    
+
+
   placeOrder() {
     this.order = this.placeOrderForm.value;
     this.order.productId = this.product.id;
@@ -116,12 +165,15 @@ export class NewOrderComponent implements OnInit {
     this.orderService.getOrders().subscribe(data => {
     this.orders = data;
     this.member.currentOrderId = this.orders[this.orders.length-1].id;
-    console.log(this.orders);
+    // console.log(this.orders);
       this.membersService.updateMember(this.member).subscribe(() => {
         this.toastr.info('Order will start when deliverer accepts it.');
-        localStorage.setItem('currentOrderId', this.member.currentOrderId.toString());
+        // localStorage.setItem('currentOrderId', this.member.currentOrderId.toString());
       })
    })
-     
+
+
   }  
+
+
 }

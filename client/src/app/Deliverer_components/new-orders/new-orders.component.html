@@ -52,13 +52,14 @@
         </div>
         
         <div *ngIf="member?.currentOrderId != 0">
-          <h1> You accepted the order</h1>
-         <p>Please follow to <a routerLink="/current-order">link</a> to see your current order</p>
+          <h1 style="display: inline-block;"> You already accepted the order </h1>
         </div>
           
-          <div id="dash">
-            <a mar href="/dashboard">Back to dashboard</a>
-          </div>
+        <div id="dash">
+          <p>
+            Go to the <a routerLink="/dashboard"> dashboard </a> or see your<a routerLink="/current-order"> current order </a>.
+          </p>
+        </div>
     </div>
 </div>
 
