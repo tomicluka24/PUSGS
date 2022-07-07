@@ -71,7 +71,7 @@ export class NewOrdersComponent implements OnInit {
       this.toastr.success('Your current order id successfully set to ' + this.order.id);
     })
   
-    this.randomDeliveryTime = this.getRandomInt(300, 1800);
+    this.randomDeliveryTime = this.getRandomInt(30, 80); // to set on 300, 1800 = 5min - 30min
     this.deliveryStartedTime = Date.now() / 1000; 
     localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'Time', this.randomDeliveryTime.toString());
     localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'StartedTime', this.deliveryStartedTime.toString());

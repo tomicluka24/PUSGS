@@ -55,10 +55,19 @@ export class MembersService {
       map(() => {
         const index = this.members.indexOf(member);
         this.members[index] = member;
-        console.log(this.members[index]);
       })
     )
   }
+
+  deliverOrder(member: Member) {
+    return this.http.put(this.baseUrl + 'users/DeliverOrder', member).pipe(
+      map(() => {
+        const index = this.members.indexOf(member);
+        this.members[index] = member;
+      })
+    )
+  }
+
 
   declineMember(member: Member) {
     return this.http.put(this.baseUrl + 'users/DeclineUser', member).pipe(

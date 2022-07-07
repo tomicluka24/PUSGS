@@ -11,6 +11,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { OrdersService } from 'src/app/_services/orders.service';
 import { Order } from 'src/app/_models/order';
 import { CountdownEvent } from 'ngx-countdown';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class CurrentOrderComponent implements OnInit {
   deliveryStartedTime: number;
   currentTime: number;
 
-  constructor(private accountService: AccountService, private memberService: MembersService, private orderService: OrdersService) {
+  constructor(private accountService: AccountService, private memberService: MembersService, private orderService: OrdersService, private toastr: ToastrService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
    }
 
@@ -64,8 +65,22 @@ export class CurrentOrderComponent implements OnInit {
          localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString());
          localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'FirstTime', 'False');
        }
-
+      
        localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'Time', this.deliveryTime.toString()); 
+
+       // order delivered
+       if(this.deliveryTime <= 0)
+       {
+         this.order.delivered = 'True';
+         this.member.currentOrderId = 0;
+
+         this.memberService.deliverOrder(this.member).subscribe(() => {
+        })
+
+          this.orderService.deliverOrder(this.order).subscribe(() => {
+            this.toastr.success('Order delivered successfully');
+        })
+       }
     });
   }
 

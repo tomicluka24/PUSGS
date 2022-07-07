@@ -42,8 +42,8 @@
 
 
 
-<div *ngIf="member?.verified== 'True'">
-    <div *appHasRole="['Deliverer']">
+<div *appHasRole="['Deliverer']">
+        <div *ngIf="member?.verified== 'True'">
         <div routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
             <button mat-raised-button color="primary"> User profile </button>
         </div>
@@ -59,19 +59,21 @@
             <button mat-raised-button color="primary"> Current order </button>
         </div>
     </div>
+
+    <div *ngIf="member?.verified== 'False'">
+        <p style="font-weight: bold;"> Your profile verification is not finished... please wait for Admin to approve your access.
+            <a class="link-info" style="font-weight: bold;" (click)="logout()">Logout</a>
+        </p>
+        <mat-progress-bar  mode="determinate" value="50"></mat-progress-bar>
+    </div>
+    
+    
+    <div *ngIf="member?.verified== 'Declined'">
+        <p style="font-weight: bold;"> Your profile verification was declined!
+            <a class="link-danger" style="font-weight: bold;" (click)="logout()">Please logout</a>
+        </p>
+        <mat-progress-bar color="warn" mode="determinate" value="100"></mat-progress-bar>
+    </div>
 </div>
 
-<div *ngIf="member?.verified== 'False'">
-    <p style="font-weight: bold;"> Your profile verification is not finished... please wait for Admin to approve your access.
-        <a class="link-info" style="font-weight: bold;" (click)="logout()">Logout</a>
-    </p>
-    <mat-progress-bar  mode="determinate" value="50"></mat-progress-bar>
-</div>
 
-
-<div *ngIf="member?.verified== 'Declined'">
-    <p style="font-weight: bold;"> Your profile verification was declined!
-        <a class="link-danger" style="font-weight: bold;" (click)="logout()">Please logout</a>
-    </p>
-    <mat-progress-bar color="warn" mode="determinate" value="100"></mat-progress-bar>
-</div>

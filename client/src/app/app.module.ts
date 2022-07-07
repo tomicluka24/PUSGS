@@ -35,7 +35,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
-import { MemberListComponent } from './members/member-list/member-list.component'
+import { MemberListComponent } from './Admin_components/member-list/member-list.component'
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';

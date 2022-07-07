@@ -44,10 +44,12 @@ export class AccountService {
 
 
   setCurrentUser(user: User) {
-
-    user.role = this.getDecodedToken(user.token).role;
-    localStorage.setItem('user', JSON.stringify(user));
-    this.currentUserSource.next(user);
+    if(user != null)
+    {
+      user.role = this.getDecodedToken(user.token).role;
+      localStorage.setItem('user', JSON.stringify(user));
+      this.currentUserSource.next(user);
+    }
   }
   
   logout() {

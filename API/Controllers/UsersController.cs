@@ -91,6 +91,20 @@ namespace API.Controllers
             return BadRequest("Failed to accept order");
         }
 
+        [HttpPut("DeliverOrder")]
+        public async Task<ActionResult> DeliverOrder(MemberAcceptOrderDTO memberAcceptOrderDTO)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(memberAcceptOrderDTO.Username);
+
+            _mapper.Map(memberAcceptOrderDTO, user);
+
+            _userRepository.Update(user);
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to accept order");
+        }
+
 
         [HttpPut("DeclineUser")]
         public async Task<ActionResult> DeclineUser(MemberVerifyDTO memberVerifyDTO)

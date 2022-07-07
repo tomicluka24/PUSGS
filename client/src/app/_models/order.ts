@@ -9,5 +9,6 @@ export interface Order {
     comment: string;
     price: number;
     accepted: string;
+    delivered: string;
   }
 

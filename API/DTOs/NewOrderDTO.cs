@@ -13,6 +13,7 @@ namespace API.DTOs
         public int DelivererId { get; set; }
         public int ProductId { get; set; }
         public string Accepted { get; set; }
+        public string Delivered { get; set; }
         [Required]
         public string ProductName { get; set; }
 

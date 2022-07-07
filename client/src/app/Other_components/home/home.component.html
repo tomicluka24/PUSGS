@@ -38,8 +38,9 @@
                         <a href="#!">Forgot password?</a>
                     </div>
 
+                    <!-- why this disable doesn't work ? -->
                     <!-- Submit button -->
-                    <button id="signIn" type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    <button [disabled]="model.email === '' || model.password === ''" id="signIn" type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
 
                     
                     <div class="divider d-flex align-items-center my-4">
@@ -53,23 +54,6 @@
                         role="button">
                         <i class="fab fa-facebook-f me-2"></i>Continue with Facebook
                     </a>
-
-                    <!-- <div *ngIf="(accountService.currentUser$ | async) !== null">
-                        <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" class="form-control" [(ngModel)]="model.fisr" id="firstname" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" class="form-control" [value]="user.lastName" id="lastname" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control" [value]="user.email" id="email" readonly>
-                        </div>
-
-                        <button type="button" (click)="logOut()" class="btn btn-primary">Log Out</button>
-                    </div> -->
 
                     <!-- Register -->
                     <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a routerLink="../register" class="link-danger">Register</a></p>

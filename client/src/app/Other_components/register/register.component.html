@@ -28,11 +28,8 @@
                             type="date"></app-text-input>
                         <app-text-input [formControl]='registerForm.controls["address"]' [label]='"Address"'>
                         </app-text-input>
-                        <!-- <app-text-input [formControl]='registerForm.controls["file"]' [label]='"Image"' type="file">
-                        </app-text-input> -->
                         <app-text-input [formControl]='registerForm.controls["photoUrl"]' [label]='"Image"' type="file">
                         </app-text-input>
-                        <!-- ng2FileSelect [uploader]="uploader" -->
                         <div class="form-group">
                             <label class="control-label" style="margin-right: 10px;">User type: </label>
                             <label class="radio-inline">
@@ -54,7 +51,6 @@
                         <div class="form-group">
                             <button [disabled]="!registerForm.valid" type="submit"
                                 class="btn btn-primary btn-lg btn-block register-button">Register</button>
-                            <!-- <button type="button" class="btn btn-secondary btn-lg btn-block register-button" (click)="cancel()">Cancel</button> -->
                         </div>
 
                         <div class="login-register">

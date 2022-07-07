@@ -12,6 +12,7 @@ namespace API.Entities
         public int DelivererId { get; set; }
         public int ProductId { get; set; }
         public string Accepted { get; set; }
+        public string Delivered { get; set; }
         public string ProductName { get; set; }
 
         public int Quantity { get; set; }

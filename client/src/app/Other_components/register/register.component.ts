@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
     this.initializeUploader();
     this.registerForm = new FormGroup({
       username: new FormControl("", Validators.required),
-      password: new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
+      password: new FormControl("", [Validators.required, Validators.minLength(4), Validators.maxLength(15)]),
       confirmPassword: new FormControl("", [Validators.required, this.matchValues('password')]),
       firstName: new FormControl("", Validators.required),
       lastName: new FormControl("", Validators.required),

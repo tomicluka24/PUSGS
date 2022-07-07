@@ -53,7 +53,22 @@ namespace API.Controllers
 
             if (await _orderRepository.SaveAllAsync()) return NoContent();
 
-            return BadRequest("Failed to validate user");
+            return BadRequest("Failed to accept order");
+        }
+
+        [Authorize(Policy = "RequireDelivererRole")]
+        [HttpPut("DeliverOrder")]
+        public async Task<ActionResult> DeliverOrder(DeliveredOrderDTO deliveredOrderDTO)
+        {
+            var order = await _orderRepository.GetOrderByIdAsync(deliveredOrderDTO.Id.ToString());
+
+            _mapper.Map(deliveredOrderDTO, order);
+
+            _orderRepository.Update(order);
+
+            if (await _orderRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to deliver order");
         }
         
         [Authorize(Policy = "RequireDelivererRole")]
@@ -61,6 +76,15 @@ namespace API.Controllers
         public async Task<ActionResult<Order>> GetOrder(string id)
         {
             return await _orderRepository.GetOrderByIdAsync(id);
+        }
+
+        [Authorize(Policy = "RequireDelivererRole")]
+        [HttpGet("my-orders")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrdersAsync()
+        {
+            var orders = await _orderRepository.GetOrdersAsync();
+
+            return Ok(orders);
         }
     }
 }

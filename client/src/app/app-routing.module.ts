@@ -7,7 +7,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AuthFbGuard } from './_guards/auth-fb.guard';
 import { UserProfileComponent } from './Other_components/user-profile/user-profile.component';
 import { AddProductComponent } from './Admin_components/add-product/add-product.component';
-import { MemberListComponent } from './members/member-list/member-list.component';
+import { MemberListComponent } from './Admin_components/member-list/member-list.component';
 import { AllOrdersComponent } from './Admin_components/all-orders/all-orders.component';
 import { VerificationComponent } from './Admin_components/verification/verification.component';
 import { NewOrderComponent } from './Consumer_components/new-order/new-order.component';

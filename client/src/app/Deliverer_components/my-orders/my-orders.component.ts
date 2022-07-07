@@ -1,13 +1,12 @@
-import { Component, OnInit, SecurityContext} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Member } from 'src/app/_models/member';
-import { User } from 'src/app/_models/user';
-import { AccountService } from 'src/app/_services/account.service';
+import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/_models/order';
+import { OrdersService } from 'src/app/_services/orders.service';
+import { Observable } from 'rxjs';
 import { MembersService } from 'src/app/_services/members.service';
+import { User } from 'src/app/_models/user';
+import { Member } from 'src/app/_models/member';
+import { AccountService } from 'src/app/_services/account.service';
 import { take } from 'rxjs/operators';
-import { SocialAuthService, SocialUser } from 'angularx-social-login';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
-import { Pipe, PipeTransform } from '@angular/core';
 
 @Component({
   selector: 'app-my-orders',
@@ -17,19 +16,23 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class MyOrdersComponent implements OnInit {
   member: Member;
   user: User;
-  photoUrl: string;
+  orders: Order[];
+  displayedColumns: string[] = ['id', 'consumerId', 'delivererId', 'productName', 'quantity', 'deliveryAddress', 'comment', 'price', 'accepted', 'delivered'];
 
-  constructor(private accountService: AccountService, private memberService: MembersService, private sanitizer: DomSanitizer) {
+  constructor(private accountService: AccountService, private memberService: MembersService, private ordersService: OrdersService,) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-    this.sanitizer = sanitizer;
    }
 
    ngOnInit(): void {
     if (this.user != null)
       this.loadMember();
-  }
+      this.ordersService.getMyOrders().subscribe(
+        orders => (this.orders = orders.filter(({delivererId}) => delivererId === this.member.id))  
+     );
+   }
+ 
+   loadMember() {
+     this.memberService.getMember(this.user.username).subscribe(member => {this.member = member;});
+   }
 
-  loadMember() {
-    this.memberService.getMember(this.user.username).subscribe(member => {this.member = member;});
-  }
 }

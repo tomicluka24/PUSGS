@@ -1,0 +1,66 @@
+.products-table {
+    width: 100%;
+    }
+    
+    .mat-column-id {
+    width: 32px;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+    }
+    
+    .mat-column-consumerId {
+    padding-left: 16px;
+    font-size: 16px;
+    }
+
+    .mat-column-delivererId {
+    padding-left: 16px;
+    font-size: 16px;
+    }
+
+    .mat-column-productName {
+        padding-left: 16px;
+        font-size: 16px;
+    }
+    
+    .mat-column-quantity {
+        padding-left: 16px;
+        font-size: 16px;
+    }
+
+    .mat-column-deliveryAddress {
+        padding-left: 16px;
+        font-size: 16px;
+    }
+
+    .mat-column-comment {
+        padding-left: 16px;
+        font-size: 16px;
+    }
+
+    .mat-column-price {
+        padding-left: 16px;
+        font-size: 16px;
+    }
+
+    .mat-column-accepted {
+        padding-left: 16px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .mat-column-delivered {
+        padding-left: 16px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    #table {
+        margin-bottom: 1cm;
+    }
+    
+    #dash {
+        margin-bottom: 1cm;
+    }
+    

@@ -23,6 +23,8 @@ namespace API.Helpers
             CreateMap<Order, NewOrderDTO>();
             CreateMap<Order, AcceptedOrderDTO>();
             CreateMap<AcceptedOrderDTO, Order>();
+            CreateMap<Order, DeliveredOrderDTO>();
+            CreateMap<DeliveredOrderDTO, Order>();
         }
     }
 }

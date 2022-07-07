@@ -55,5 +55,31 @@ namespace API.Controllers
         {
             return await _orderRepository.GetOrderByIdAsync(id);
         }
+
+        [Authorize(Policy = "RequireConsumerRole")]
+        [HttpPut("RecieveOrder")]
+        public async Task<ActionResult> RecieveOrder(DeliveredOrderDTO deliveredOrderDTO)
+        {
+            var order = await _orderRepository.GetOrderByIdAsync(deliveredOrderDTO.Id.ToString());
+
+            _mapper.Map(deliveredOrderDTO, order);
+
+            _orderRepository.Update(order);
+
+            if (await _orderRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to recieve order");
+        }
+
+        [Authorize(Policy = "RequireConsumerRole")]
+        [HttpGet("previous-orders")]
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrderssAsync()
+        {
+            var orders = await _orderRepository.GetOrdersAsync();
+
+            return Ok(orders);
+        }
+
+
     }
 }
