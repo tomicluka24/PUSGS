@@ -37,6 +37,17 @@ export class ProductService {
     )
   }
 
+  getProductsAsSocialUser() {
+    if (this.products.length > 0) return of(this.products);
+    return this.http.get<Product[]>(this.baseUrl + 'consumer/social-user-menu').pipe(
+      map(products => {
+        this.products = products;
+        return products;
+      })
+    )
+  }
+
+
   
   getProduct(name: string) {
     const product = this.products.find(x => x.name === name);

@@ -22,10 +22,13 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
-import { SocialUserDashboardComponent } from './Other_components/social-user-dashboard/social-user-dashboard.component';
+import { SocialUserDashboardComponent } from './SocialUser_components/social-user-dashboard/social-user-dashboard.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { DelivererGuard } from './_guards/deliverer.guard';
 import { ConsumerGuard } from './_guards/consumer.guard';
+import { SocialUserProfileComponent } from './SocialUser_components/social-user-profile/social-user-profile.component';
+import { SocialUserNewOrderComponent } from './SocialUser_components/social-user-new-order/social-user-new-order.component';
+import { SocialUserMenuComponent } from './SocialUser_components/social-user-menu/social-user-menu.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -45,6 +48,9 @@ const routes: Routes = [
   {path: 'my-orders', component: MyOrdersComponent, canActivate: [DelivererGuard]},
   {path: 'new-orders', component: NewOrdersComponent, canActivate: [DelivererGuard]},
   {path: 'social-user-dashboard', component: SocialUserDashboardComponent},
+  {path: 'social-user-profile', component: SocialUserProfileComponent},
+  {path: 'social-user-new-order', component: SocialUserNewOrderComponent},
+  {path: 'social-user-menu', component: SocialUserMenuComponent},
   {path: 'errors', component: TestErrorsComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},

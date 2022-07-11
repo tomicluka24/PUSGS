@@ -16,11 +16,17 @@ export class NavComponent implements OnInit {
   constructor(
     public accountService: AccountService, 
     private route: Router,
-    public socialAuthService: SocialAuthService) { }
+    public socialAuthService: SocialAuthService) { 
+
+    }
     
-  ngOnInit(): void {
-    this.socialAuthService.authState.pipe(take(1)).subscribe(user => this.user = user);
-  }
+    ngOnInit(): void {
+      this.setCurrentUser();
+    }
+  
+    setCurrentUser() {
+      this.user = JSON.parse(localStorage.getItem('socialUser'));
+    }
 
   logout() {
     this.accountService.logout();
@@ -29,9 +35,8 @@ export class NavComponent implements OnInit {
   
   
   logOutSocial(): void{
-    this.accountService.logoutSocial();
+    this.socialAuthService.signOut(true);
     localStorage.removeItem('socialUser');
-    this.socialAuthService.signOut();
     this.route.navigateByUrl('');
   }
 

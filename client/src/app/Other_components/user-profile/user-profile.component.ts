@@ -18,19 +18,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class UserProfileComponent implements OnInit {
   member: Member;
   user: User;
-  socialUser: SocialUser;
   photoUrl: string;
 
-  constructor(private accountService: AccountService, private authService: SocialAuthService, private memberService: MembersService, private sanitizer: DomSanitizer) {
+  constructor(private accountService: AccountService, private memberService: MembersService, private sanitizer: DomSanitizer) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-    this.authService.authState.pipe(take(1)).subscribe(socialUser => this.socialUser = socialUser);
     this.sanitizer = sanitizer;
-    //this.photoUrl = this.transform(this.user.photoUrl);
    }
 
   ngOnInit(): void {
     if (this.user != null)
       this.loadMember();
+
   }
 
   loadMember() {

@@ -23,7 +23,6 @@ export let browserRefresh = false;
   styleUrls: ['./new-order.component.css'],
 })
 export class NewOrderComponent implements OnInit {
-  
   user: User;
   member: Member;
   placeOrderForm: FormGroup;
@@ -41,26 +40,21 @@ export class NewOrderComponent implements OnInit {
   deliveryStartedTime: number;
   currentTime: number;
 
-
-
   constructor(private accountService: AccountService,
     private membersService: MembersService, 
     private productService: ProductService,
     private orderService: OrdersService, 
     private toastr: ToastrService,
-    private router: Router) 
-    {
+    private router: Router) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
-      }
+  }
   
-
   ngOnInit(): void {
     this.loadMember();
     this.products$ = this.productService.getProducts();
     this.initializeForm();
   }
 
-    
   loadMember() {
     this.membersService.getMember(this.user.username).subscribe(member => {
       this.member = member;
@@ -69,7 +63,6 @@ export class NewOrderComponent implements OnInit {
         this.loadOrder();
       }
     })
-
   }
 
   loadOrder() {
@@ -97,23 +90,25 @@ export class NewOrderComponent implements OnInit {
         }
  
         localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'Time', this.deliveryTime.toString()); 
+        if(this.deliveryTime >= 0)
+        {
+          setTimeout(window.location.reload.bind(window.location),this.deliveryTime* 1000) ;
+        }
+
         // order delivered
         if(this.deliveryTime <= 0)
         {
+          this.order.delivered = 'True';
           this.member.currentOrderId = 0;
  
           this.membersService.deliverOrder(this.member).subscribe(() => {
             this.toastr.success('Order recieved successfully');
-         })
-          
+          })
+          this.orderService.recieveOrder(this.order).subscribe(() => {
+          }) 
         }
-      }
-       
-       
+      }});
     }
-    );
-  }
-
 
   initializeForm() {
     this.placeOrderForm = new FormGroup(
@@ -123,13 +118,12 @@ export class NewOrderComponent implements OnInit {
       deliveryAddress: new FormControl("", Validators.required),
       comment: new FormControl(""),
     });
-    }
+  }
 
   selected(change: MatSelectChange) {
     this.productService.getProduct(change.value).subscribe(product => {
       this.product = product;
     })
-
     this.price = this.product.price;
   }
 
@@ -146,7 +140,7 @@ export class NewOrderComponent implements OnInit {
     this.orderService.placeOrder(this.placeOrderForm.value).subscribe(response => {
       this.toastr.success('New order placed successfully');
     }, error => {
-      this.validationErrors = error;      
+      this.validationErrors = error;
     })
 
     this.orderService.getOrders().subscribe(data => {

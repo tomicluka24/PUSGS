@@ -1,9 +1,9 @@
 <section class="vh-100">
     <div class="container py-5 h-100">
         <h1>Welcome to delivery app</h1>
-        <div class="row d-flex align-items-center justify-content-center h-10">
+        <div style="margin-top: 2cm;" class="row d-flex align-items-center justify-content-center h-10">
             <div class="col-md-8 col-lg-7 col-xl-6">
-                <img src="https://cf.shopee.sg/file/1c648a3074c30cffb7877af403b2b503" class="img-fluid"
+                <img src="https://www.odtap.com/wp-content/uploads/2019/07/On-demand-food-delivery-2.jpg" class="img-fluid"
                     alt="Delivery image">
             </div>
 
@@ -17,16 +17,26 @@
                 <form *ngIf="(accountService.currentUser$ | async) === null" (ngSubmit)="login()" #loginForm="ngForm">
                     <!-- Email input -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" [(ngModel)]="model.email" name="email"
+                        <input type="text" required class="form-control" #name="ngModel" [(ngModel)]="model.email"  name="email"
                             id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Email address</label>
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+                            <div *ngIf="name.errors?.['required']">
+                                Email is required!
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Password input -->
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" [(ngModel)]="model.password" name="password"
+                        <input type="password" required class="form-control" #name="ngModel" [(ngModel)]="model.password" name="password"
                             id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
+                            <div *ngIf="name.errors?.['required']">
+                                Password is required!
+                            </div>
+                        </div>
                     </div>
 
                     <div class="d-flex justify-content-around align-items-center mb-4">
@@ -40,7 +50,7 @@
 
                     <!-- why this disable doesn't work ? -->
                     <!-- Submit button -->
-                    <button [disabled]="model.email === '' || model.password === ''" id="signIn" type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                    <button [disabled]="!model.email || !model.password" id="signIn" type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
 
                     
                     <div class="divider d-flex align-items-center my-4">

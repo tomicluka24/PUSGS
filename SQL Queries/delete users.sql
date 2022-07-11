@@ -1,0 +1,2 @@
+-- SQLite
+DELETE FROM Menu WHERE Id > 21;

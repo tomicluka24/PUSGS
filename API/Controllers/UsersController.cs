@@ -20,13 +20,14 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         public readonly IPhotoService _photoService;
         public readonly IEmailSender _emailSender;
-
-        public UsersController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService, IEmailSender emailSender)
+        private readonly IProductRepository _productRepository;
+        public UsersController(IUserRepository userRepository, IMapper mapper, IProductRepository productRepository, IPhotoService photoService, IEmailSender emailSender)
         {
             _photoService = photoService;
             _mapper = mapper;
             _userRepository = userRepository;
             _emailSender = emailSender;
+            _productRepository = productRepository;
         }
 
         [HttpGet]
@@ -105,7 +106,6 @@ namespace API.Controllers
             return BadRequest("Failed to accept order");
         }
 
-
         [HttpPut("DeclineUser")]
         public async Task<ActionResult> DeclineUser(MemberVerifyDTO memberVerifyDTO)
         {
@@ -121,23 +121,7 @@ namespace API.Controllers
         }
 
 
-        // [HttpPost("add-photo")]
-        // public async Task<ActionResult<string>> AddPhoto(IFormFile file)
-        // {
-        //     var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
 
-        //     var result = await _photoService.AddPhotoAsync(file);
 
-        //     if (result.Error != null) return BadRequest(result.Error.Message);
-
-        //     user.PhotoUrl  = result.SecureUrl.AbsoluteUri;
-
-        //     if (await _userRepository.SaveAllAsync())
-        //         return  CreatedAtRoute("GetUser", new {username = user.UserName}, user.PhotoUrl);
-
-        //     return BadRequest("Problem adding photo");
-        // }
-
-        
     }
 } 

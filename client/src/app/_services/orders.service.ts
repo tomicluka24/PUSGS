@@ -26,6 +26,17 @@ export class OrdersService {
     )
   }
 
+  placeOrderAsSocialUser(model: any) {
+    // return this.http.post(this.baseUrl + 'consumer/place-order-as-social-user', model).pipe(
+    //   map((order: Order) => {
+    //     if (order) {
+          localStorage.setItem('socialUserOrder', JSON.stringify(model));
+          console.log(model);
+    //     }
+    //     return order;
+    //   })
+    // )
+  }
   
   getOrders() {
     if (this.orders.length > 0) return of(this.orders);

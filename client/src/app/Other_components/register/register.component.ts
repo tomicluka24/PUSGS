@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
       confirmPassword: new FormControl("", [Validators.required, this.matchValues('password')]),
       firstName: new FormControl("", Validators.required),
       lastName: new FormControl("", Validators.required),
-      email: new FormControl("", Validators.required),
+      email: new FormControl("", [Validators.required, Validators.email]),
       dateOfBirth: new FormControl("", Validators.required),
       address: new FormControl("", Validators.required),
       photoUrl: new FormControl(""),

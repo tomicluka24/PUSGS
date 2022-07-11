@@ -1,0 +1,26 @@
+<div class="row" *ngIf="socialUser">
+    <div class="col-4">
+        <h1 id="h1">{{socialUser.firstName}}'s profile</h1>
+        <div class="card">
+            <img style="width: 300; height: 300;" src="https://scontent.fbeg2-1.fna.fbcdn.net/v/t1.6435-9/121182644_3553618701344066_4634674809576217375_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeGGyXa6eUvpu3LJbIlj_KRjpB_5zuFHTtGkH_nO4UdO0UvMoKnWzyNqXcrVbiQkpZ3oGi_xnNoWLvjpy36GvA02&_nc_ohc=AX7243yRvVAAX8Bixn7&tn=VOyGYVxMI9_ULBn9&_nc_ht=scontent.fbeg2-1.fna&oh=00_AT9qflRy0kMUHWaRQfAVkCLReTiFsSkhhvEEzUO4KatKFQ&oe=62F11BB6" class="card-img-top img-thumbnail">
+            <div class="card-body">
+                <div>
+                    <strong>Name:</strong>
+                    <p>{{socialUser.firstName}} {{socialUser.lastName}}</p>
+                </div>
+                <div>
+                    <strong>Email:</strong>
+                    <p>{{socialUser.email}}</p>
+                </div>
+                <div>
+                    <strong>Provider:</strong>
+                    <p>{{socialUser.provider}}</p>
+                </div>
+                <div>
+                    <strong>Provider id:</strong>
+                    <p>{{socialUser.id}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

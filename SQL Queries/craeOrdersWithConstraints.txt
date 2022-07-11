@@ -1,0 +1,15 @@
+CREATE TABLE Orders (
+    Id integer PRIMARY KEY CONSTRAINT "PK_Orders" PRIMARY KEY AUTOINCREMENT,
+    ConsumerId integer,
+    DelivererId integer,
+    ProductId integer,
+    ProductName text,
+    Quantity integer,
+    DeliveryAddress text,
+    Comment text,
+    Price integer,
+    Accepted text,
+    CONSTRAINT "FK_ConsumerId" FOREIGN KEY (ConsumerId) REFERENCES AspNetUsers(Id) ON DELETE CASCADE,
+    CONSTRAINT "FK_DelivererId" FOREIGN KEY (DelivererId) REFERENCES AspNetUsers(Id) ON DELETE CASCADE,
+    CONSTRAINT "FK_ProdcutId" FOREIGN KEY (ProductId) REFERENCES Menu(Id) ON DELETE CASCADE
+)

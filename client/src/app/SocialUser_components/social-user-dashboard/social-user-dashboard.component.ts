@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { take } from 'rxjs/operators';
 @Component({
@@ -9,17 +10,21 @@ import { take } from 'rxjs/operators';
 export class SocialUserDashboardComponent implements OnInit {
 socialUser: SocialUser;
 
-  constructor(public authService: SocialAuthService) {
+  constructor(public authService: SocialAuthService, private router: Router) {
     this.authService.authState.pipe(take(1)).subscribe(socialUser => this.socialUser = socialUser);
    }
 
   ngOnInit(): void {
     this.setCurrentUser();
+  
   }
 
-  setCurrentUser() {
+  async setCurrentUser() {
     this.socialUser = JSON.parse(localStorage.getItem('socialUser'));
-    //console.log(this.user);
+    if(this.socialUser == null)
+    {
+      this.router.navigateByUrl('/social-user-dashboard');
+    }
   }
 
 }

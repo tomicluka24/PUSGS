@@ -14,7 +14,7 @@ namespace API.DTOs
         public string Username { get; set; }
 
         [Required]
-        [StringLength(8, MinimumLength = 4)]
+        [StringLength(15, MinimumLength = 4)]
         public string Password { get; set; }
 
         [Required]
@@ -29,7 +29,6 @@ namespace API.DTOs
         public string Address { get; set; }
         [Required]
         public string Email { get; set; }
-        // IFormFile File { get; set; }
         public string PhotoUrl { get; set; }
     }
 }

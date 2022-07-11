@@ -32,9 +32,14 @@ export class HomeComponent implements OnInit {
     private socialAuthService: SocialAuthService,
     private toastr: ToastrService) { }
 
-  ngOnInit(): void {
-    
-  }
+    ngOnInit(): void {
+      this.setCurrentUser();
+    }
+  
+    setCurrentUser() {
+      this.user = JSON.parse(localStorage.getItem('socialUser'));
+      console.log(this.user);
+    }
 
   login() {
     this.accountService.login(this.model).subscribe(response => {
@@ -48,6 +53,8 @@ export class HomeComponent implements OnInit {
       password: ['', Validators.required]
     });
 
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+
     this.socialAuthService.authState.subscribe((user) => {
       this.user = user;
       this.isSignedin = (user != null);
@@ -56,7 +63,6 @@ export class HomeComponent implements OnInit {
       console.log(error);
     });
     
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
 

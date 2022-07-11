@@ -31,7 +31,6 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-        // , [FromForm]IFormFile file
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
             if (await UserUsernameExists(registerDTO.Username))
@@ -44,8 +43,7 @@ namespace API.Controllers
             var user = _mapper.Map<AppUser>(registerDTO);
 
             user.PhotoUrl = user.PhotoUrl.Replace("C:\\fakepath\\", "http://127.0.0.1:8887/Slike/");
-            // string dateOfBirth = user.DateOfBirth.ToString();
-            //user.DateOfBirth = user.DateOfBirth.Date;
+            
             if (registerDTO.UserType == "Deliverer")
                 user.Verified = "False";
             else
@@ -85,6 +83,26 @@ namespace API.Controllers
 
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
+        {
+            var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Email == loginDTO.Email.ToLower());
+
+            if (user == null)
+                return Unauthorized("Invalid Email");
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDTO.Password, false);
+
+            if (!result.Succeeded) return Unauthorized();
+
+            return new UserDTO
+            {
+                Username = user.UserName,
+                Token = await _tokenService.CreateToken(user),
+                PhotoUrl = user.PhotoUrl
+            };
+        }
+
+        [HttpPost("socialLogin")]
+        public async Task<ActionResult<UserDTO>> SocialLogin(LoginDTO loginDTO)
         {
             var user = await _userManager.Users.SingleOrDefaultAsync(x => x.Email == loginDTO.Email.ToLower());
 

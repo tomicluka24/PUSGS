@@ -40,7 +40,7 @@ namespace API.Controllers
                 return BadRequest("Failed to decline user");
         }
 
-        [Authorize(Policy = "RequireAdminRole")]
+        // [Authorize(Policy = "RequireAdminRole")]
         [HttpGet("all-orders")]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrderssAsync()
         {

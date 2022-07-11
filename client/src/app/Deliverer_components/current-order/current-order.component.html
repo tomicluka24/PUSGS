@@ -32,13 +32,8 @@
                 </p>
             </div>
         </div>
-    </div>
-    
-</div>
 
-
-<div *appHasRole="['Deliverer']">
-    <div *ngIf="member?.verified === 'True'">
+        
         <div class="row justify-content-left" style="font-weight: bold; white-space: pre-line" *ngIf="member?.currentOrderId === 0">
             <div>
                 <h1> You currently dont have accepted order </h1>
@@ -46,10 +41,13 @@
                     Go to the <a routerLink="/dashboard"> dashboard </a> or accept one of the <a routerLink="/new-orders"> new orders </a>.
                 </p>
             </div>
-
         </div>
+        
     </div>
+    
 </div>
+
+
 
 
 

@@ -16,6 +16,7 @@
                 <div style="float: center;">
                     <img src={{member.photoUrl}} width="150" height="150">
                 </div>
+                <button id="button2" style="float: center;" class="btn btn-danger btn-lg" (click)="decline(member.username)">Decline</button>
             </div>
     
             <div style="float: center;" id="declined" *ngIf="member.verified == 'Declined' && member?.userType === 'Deliverer'">
@@ -23,6 +24,7 @@
                 <div style="float: center;">
                     <img src={{member.photoUrl}} width="150" height="150">
                 </div>
+                <button id="button1" style="float: left;" class="btn btn-success btn-lg" (click)="verify(member.username)">Verify</button>
             </div>
     
         </div>

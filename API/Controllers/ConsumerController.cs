@@ -38,6 +38,15 @@ namespace API.Controllers
             return Ok(products);
         }
 
+        
+        [HttpGet("social-user-menu")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsyncAsSocialUser()
+        {
+            var products = await _productRepository.GetProductsAsync();
+
+            return Ok(products);
+        }
+
         [Authorize(Policy = "RequireConsumerRole")]
         [HttpPost("place-order")]
         public async Task<ActionResult> PlaceOrder(NewOrderDTO newOrderDTO)
@@ -48,6 +57,17 @@ namespace API.Controllers
             if (await _orderRepository.SaveAllAsync()) return NoContent();
                 return BadRequest("Failed to place new order");
         }
+
+
+        // [HttpPost("place-order-as-social-user")]
+        // public async Task<ActionResult> PlaceOrderAsSocialUser(NewOrderDTO newOrderDTO)
+        // {
+        //     var order = _mapper.Map<Order>(newOrderDTO);
+        //     _orderRepository.PlaceOrder(order);
+
+        //     if (await _orderRepository.SaveAllAsync()) return NoContent();
+        //         return BadRequest("Failed to place new order");
+        // }
 
         [Authorize(Policy = "RequireConsumerRole")]
         [HttpGet("current-order/{id}")]

@@ -57,29 +57,3 @@
     </div>
 </div>
 
-<div class="row" *ngIf="socialUser">
-    <div class="col-4">
-        <h1 id="h1">{{socialUser.firstName}}'s profile</h1>
-        <div class="card">
-            <img src="{{socialUser.photoUrl}}" class="card-img-top img-thumbnail">
-            <div class="card-body">
-                <div>
-                    <strong>Name:</strong>
-                    <p>{{socialUser.firstName}} {{socialUser.lastName}}</p>
-                </div>
-                <div>
-                    <strong>Email:</strong>
-                    <p>{{socialUser.email}}</p>
-                </div>
-                <div>
-                    <strong>Provider:</strong>
-                    <p>{{socialUser.provider}}</p>
-                </div>
-                <div>
-                    <strong>Provider id:</strong>
-                    <p>{{socialUser.id}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

@@ -44,10 +44,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CountdownModule } from 'ngx-countdown';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import {FileUploadModule} from 'ng2-file-upload';
-import { SocialUserDashboardComponent } from './Other_components/social-user-dashboard/social-user-dashboard.component';
+import { SocialUserDashboardComponent } from './SocialUser_components/social-user-dashboard/social-user-dashboard.component';
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MenuComponent } from './Consumer_components/menu/menu.component';
+import { SocialUserProfileComponent } from './SocialUser_components/social-user-profile/social-user-profile.component';
+import { SocialUserNewOrderComponent } from './SocialUser_components/social-user-new-order/social-user-new-order.component';
+import { SocialUserMenuComponent } from './SocialUser_components/social-user-menu/social-user-menu.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,9 @@ import { MenuComponent } from './Consumer_components/menu/menu.component';
     SocialUserDashboardComponent,
     HasRoleDirective,
     MenuComponent,
+    SocialUserProfileComponent,
+    SocialUserNewOrderComponent,
+    SocialUserMenuComponent,
   ],
   imports: [
     BrowserModule,

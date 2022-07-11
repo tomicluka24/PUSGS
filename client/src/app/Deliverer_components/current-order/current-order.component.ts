@@ -35,12 +35,19 @@ export class CurrentOrderComponent implements OnInit {
    ngOnInit(): void {
     if (this.user != null)
       this.loadMember();
+
+
+
+
   }
 
   loadMember() {
     this.memberService.getMember(this.user.username).subscribe(member => {
       this.member = member;
       this.loadOrder();
+
+
+
     });
   }
 
@@ -57,7 +64,7 @@ export class CurrentOrderComponent implements OnInit {
        {
          var lastTimeLoaded = +localStorage.getItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime');
          this.deliveryTime = this.deliveryTime - (this.loadPageTime - lastTimeLoaded);
-         localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString())
+         localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString());
        }
        else // page loaded first time so take startedTime and place lastTimeLoaded
        {
@@ -67,16 +74,17 @@ export class CurrentOrderComponent implements OnInit {
        }
       
        localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'Time', this.deliveryTime.toString()); 
-
+      if(this.deliveryTime >= 0)
+      {
+        setTimeout(window.location.reload.bind(window.location),this.deliveryTime* 1000) ;
+      }
        // order delivered
        if(this.deliveryTime <= 0)
        {
          this.order.delivered = 'True';
          this.member.currentOrderId = 0;
-
          this.memberService.deliverOrder(this.member).subscribe(() => {
         })
-
           this.orderService.deliverOrder(this.order).subscribe(() => {
             this.toastr.success('Order delivered successfully');
         })
