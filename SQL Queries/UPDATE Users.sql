@@ -14,9 +14,9 @@ UPDATE Users
 SET FirstName = 'Luka'
 WHERE id=1;
 
-UPDATE Users
-SET Username = 'luka98'
-WHERE id=1;
+UPDATE AspNetUsers
+SET CurrentOrderId = 0
+WHERE Username = 'teodora98';
 
 UPDATE Users
 SET LastName = 'Tomic'

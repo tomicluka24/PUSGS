@@ -1,6 +1,6 @@
-<div *appHasRole="['Admin']">
+<div style="margin-left: 12cm;" *appHasRole="['Admin']">
     <h1>Deliverers</h1>
-    <div class="row">
+    <div style="width: 7cm; background-color: white;" class="row justify-content-center">
         <div  *ngFor="let member of members$ | async" class="col-10">
             <div id="notVerified" *ngIf="member.verified == 'False' && member?.userType === 'Deliverer'">
                 {{member.username}} is not verified
@@ -28,6 +28,10 @@
             </div>
     
         </div>
+        
+    </div>
+    <div  style="margin-left:3.5cm; margin-bottom: 2cm;">
+        <a style="color: black;" routerLink="/dashboard">Back to dashboard</a>
     </div>
 </div>
     

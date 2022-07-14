@@ -29,6 +29,7 @@ import { ConsumerGuard } from './_guards/consumer.guard';
 import { SocialUserProfileComponent } from './SocialUser_components/social-user-profile/social-user-profile.component';
 import { SocialUserNewOrderComponent } from './SocialUser_components/social-user-new-order/social-user-new-order.component';
 import { SocialUserMenuComponent } from './SocialUser_components/social-user-menu/social-user-menu.component';
+import { SocialUsersNewOrdersComponent } from './Deliverer_components/social-users-new-orders/social-users-new-orders.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -47,6 +48,7 @@ const routes: Routes = [
   {path: 'current-order', component: CurrentOrderComponent, canActivate: [DelivererGuard]}, // da li napraviti jos jedan route ili staviti jos jedan guard (pokusati) i oba tipa korisnika redirektovati ovde?
   {path: 'my-orders', component: MyOrdersComponent, canActivate: [DelivererGuard]},
   {path: 'new-orders', component: NewOrdersComponent, canActivate: [DelivererGuard]},
+  {path: 'social-users-new-orders', component: SocialUsersNewOrdersComponent, canActivate: [DelivererGuard]},
   {path: 'social-user-dashboard', component: SocialUserDashboardComponent},
   {path: 'social-user-profile', component: SocialUserProfileComponent},
   {path: 'social-user-new-order', component: SocialUserNewOrderComponent},

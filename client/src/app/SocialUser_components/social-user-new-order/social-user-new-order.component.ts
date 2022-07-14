@@ -52,7 +52,7 @@ export class SocialUserNewOrderComponent implements OnInit {
     this.setCurrentUser();
     this.products$ = this.productService.getProductsAsSocialUser();
     this.initializeForm();
-    this.order = JSON.parse(localStorage.getItem('socialUserOrder'));
+    this.loadOrder();
   }
 
   setCurrentUser() {
@@ -84,18 +84,57 @@ export class SocialUserNewOrderComponent implements OnInit {
     this.order.accepted = "False";
     this.order.delivered = "False";
     this.order.delivererId = 1; // assign it to admin so it passes foreign key constraint => to be updated after accepting by deliverer
+    this.order.id = this.getRandomInt(1000, 2000);
 
-    this.orderService.placeOrderAsSocialUser(this.placeOrderForm.value)
+    this.orderService.placeOrderAsSocialUser(this.order)
       this.toastr.success('New order placed successfully');
-  
-
-    // this.orderService.getOrders().subscribe(data => {
-    // this.orders = data;
-    // // this.member.currentOrderId = this.orders[this.orders.length-1].id;
-    //   this.membersService.updateMember(this.member).subscribe(() => {
-    //     this.toastr.info('Order will start when deliverer accepts it.');
-    //   })
-  //  })
   }  
 
+
+
+  loadOrder() {
+    this.order = JSON.parse(localStorage.getItem('socialUserOrder'));
+
+      
+      if(this.order.accepted == "True")
+      {
+        this.deliveryStartedTime = +localStorage.getItem(this.order.delivererId + 'delivery' + this.order.id + 'StartedTime');
+        this.loadPageTime = Date.now()/1000;
+        this.deliveryTime = +localStorage.getItem(this.order.delivererId + 'delivery' + this.order.id + 'Time');
+        var firstTime =  localStorage.getItem(this.order.delivererId + 'delivery' + this.order.id + 'FirstTime');
+ 
+        if(firstTime != "True") //if not first time loaded, take lastTimeLoaded and update lastTime loaded
+        {
+          var lastTimeLoaded = +localStorage.getItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime');
+          this.deliveryTime = this.deliveryTime - (this.loadPageTime - lastTimeLoaded);
+          localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString())
+        }
+        else // page loaded first time so take startedTime and place lastTimeLoaded
+        {
+          this.deliveryTime = this.deliveryTime - (this.loadPageTime - this.deliveryStartedTime);
+          localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString());
+          localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'FirstTime', 'False');
+        }
+ 
+        localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'Time', this.deliveryTime.toString()); 
+        if(this.deliveryTime >= 0)
+        {
+          setTimeout(window.location.reload.bind(window.location),this.deliveryTime* 1000) ;
+        }
+
+        // order delivered
+        if(this.deliveryTime <= 0)
+        {
+            localStorage.removeItem('socialUserOrder');
+            this.toastr.success('Order received successfully');
+        }
+      }
+    }
+  
+
+  getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  }
 }

@@ -35,11 +35,12 @@ namespace API.Data
 
                 builder.Entity<AppUser>().Ignore(c => c.AccessFailedCount)
                                            .Ignore(c=> c.LockoutEnabled)
-                                           .Ignore(c=>c.LockoutEnabled)
                                            .Ignore(c=>c.PhoneNumber)
                                            .Ignore(c=>c.PhoneNumberConfirmed)
-                                           .Ignore(c=>c.LockoutEnabled)
-                                           .Ignore(c=>c.TwoFactorEnabled)
+                                           .Ignore(c=>c.LockoutEnd)
+                                           .Ignore(c=>c.ConcurrencyStamp)
+                                           .Ignore(c=>c.EmailConfirmed)
+                                           .Ignore(c=>c.SecurityStamp)
                                            .Ignore(c=>c.TwoFactorEnabled);
                 builder.Entity<IdentityUser>().ToTable("Users");
                 builder.Entity<AppUser>()

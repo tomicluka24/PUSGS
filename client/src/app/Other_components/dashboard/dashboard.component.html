@@ -1,79 +1,87 @@
 
-<div *appHasRole="['Admin']" >
-    <div routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
-        <button mat-raised-button color="primary"> User profile </button>
-    </div>
-
-    <div [routerLink]= "['/members']" style="margin-top: 50px; text-align: center;">
-        <button mat-raised-button color="primary"> Member list </button>
-    </div>
-    
-    <div routerLink="/all-orders" style="margin-top: 50px; text-align: center;">
-        <button mat-raised-button color="primary"> All orders </button>
-    </div>
-    
-    <div routerLink="/add-product" style="margin-top: 50px; text-align: center;">
-        <button mat-raised-button color="primary"> Add product </button>
-    </div>
-    
-    <div routerLink="/verification" style="margin-top: 50px; text-align: center;">
-        <button mat-raised-button color="primary"> Verification </button>
-    </div>
-</div>
-
-
-<div *appHasRole="['Consumer']">
-    <div routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
-        <button mat-raised-button color="primary"> User profile </button>
-    </div>
-
-    <div routerLink="/menu" style="margin-top: 50px; text-align: center;">
-        <button mat-raised-button color="primary"> Menu </button>
-    </div>
-
-    <div routerLink="/new-order" style="margin-top: 50px; text-align: center;">
-        <button mat-raised-button color="primary"> New/Current order </button>
-    </div>
-
-    <div routerLink="/previous-orders" style="margin-top: 50px; text-align: center;">
-        <button mat-raised-button color="primary"> Previous orders </button>
-    </div>
-</div>
-
-
-
-<div *appHasRole="['Deliverer']">
-        <div *ngIf="member?.verified== 'True'">
+<div >
+   
+    <div *appHasRole="['Admin']" >
         <div routerLink="/user-profile" style="margin-top: 100px; text-align: center;">
             <button mat-raised-button color="primary"> User profile </button>
         </div>
-
-        <div  routerLink="/new-orders" style="margin-top: 50px; text-align: center;">
-            <button mat-raised-button color="primary"> New orders </button>
+    
+        <div [routerLink]= "['/members']" style="margin-top: 50px; text-align: center;">
+            <button mat-raised-button color="primary"> Member list </button>
         </div>
-
-        <div routerLink="/my-orders" style="margin-top: 50px; text-align: center;">
-            <button mat-raised-button color="primary"> My orders </button>
+        
+        <div routerLink="/all-orders" style="margin-top: 50px; text-align: center;">
+            <button mat-raised-button color="primary"> All orders </button>
         </div>
-        <div routerLink="/current-order" style="margin-top: 50px; text-align: center;">
-            <button mat-raised-button color="primary"> Current order </button>
+        
+        <div routerLink="/add-product" style="margin-top: 50px; text-align: center;">
+            <button mat-raised-button color="primary"> Add product </button>
         </div>
-    </div>
-
-    <div *ngIf="member?.verified== 'False'">
-        <p style="font-weight: bold;"> Your profile verification is not finished... please wait for Admin to approve your access.
-            <a class="link-info" style="font-weight: bold;" (click)="logout()">Logout</a>
-        </p>
-        <mat-progress-bar  mode="determinate" value="50"></mat-progress-bar>
+        
+        <div routerLink="/verification" style="margin-top: 50px; text-align: center;">
+            <button mat-raised-button color="primary"> Verification </button>
+        </div>
     </div>
     
     
-    <div *ngIf="member?.verified== 'Declined'">
-        <p style="font-weight: bold;"> Your profile verification was declined!
-            <a class="link-danger" style="font-weight: bold;" (click)="logout()">Please logout</a>
-        </p>
-        <mat-progress-bar color="warn" mode="determinate" value="100"></mat-progress-bar>
+    <div *appHasRole="['Consumer']">
+        <div routerLink="/user-profile" style="margin-top: 150px; text-align: center;">
+            <button mat-raised-button color="primary"> User profile </button>
+        </div>
+    
+        <div routerLink="/menu" style="margin-top: 50px; text-align: center;">
+            <button mat-raised-button color="primary"> Menu </button>
+        </div>
+    
+        <div routerLink="/new-order" style="margin-top: 50px; text-align: center;">
+            <button mat-raised-button color="primary"> New/Current order </button>
+        </div>
+    
+        <div routerLink="/previous-orders" style="margin-top: 50px; text-align: center;">
+            <button mat-raised-button color="primary"> Previous orders </button>
+        </div>
+        
+    </div>
+    
+    
+    
+    <div *appHasRole="['Deliverer']">
+            <div *ngIf="member?.verified== 'True'">
+            <div routerLink="/user-profile" style="margin-top: 150px; text-align: center;">
+                <button mat-raised-button color="primary"> User profile </button>
+            </div>
+    
+            <div  routerLink="/new-orders" style="margin-top: 50px; text-align: center;">
+                <button mat-raised-button color="primary"> New orders </button>
+            </div>
+            <div *ngIf="socialUserOrder?.accepted === 'False'" routerLink="/social-users-new-orders" style="margin-top: 50px; text-align: center;">
+                <button mat-raised-button color="primary"> New orders from social users </button>
+            </div>
+
+            <div routerLink="/my-orders" style="margin-top: 50px; text-align: center;">
+                <button mat-raised-button color="primary"> My orders </button>
+            </div>
+            <div routerLink="/current-order" style="margin-top: 50px; text-align: center;">
+                <button mat-raised-button color="primary"> Current order </button>
+            </div>
+           
+        </div>
+    
+        <div style="margin-top: 8cm; margin-left: 12cm;" *ngIf="member?.verified== 'False'">
+            <p style="font-weight: bold;"> Your profile verification is not finished... <br> Please wait for Admin to verify your account.
+            </p>
+            <mat-progress-bar  style="width: 9cm;" mode="determinate" value="50"></mat-progress-bar>
+        </div>
+        
+        
+        <div style="margin-top: 8cm; margin-left: 12cm;" *ngIf="member?.verified== 'Declined'">
+                <a class="link-danger" style="font-weight: bold;" (click)="logout()">Please logout</a>
+            <p style="font-weight: bold;"> Your profile verification was declined! 
+            </p>
+            <mat-progress-bar style="width: 9cm;" color="warn" mode="determinate" value="100"></mat-progress-bar>
+        </div>
     </div>
 </div>
+
 
 

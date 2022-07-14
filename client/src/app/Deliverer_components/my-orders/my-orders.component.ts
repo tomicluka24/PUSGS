@@ -26,6 +26,7 @@ export class MyOrdersComponent implements OnInit {
    ngOnInit(): void {
     if (this.user != null)
       this.loadMember();
+      
       this.ordersService.getMyOrders().subscribe(
         orders => (this.orders = orders.filter(({delivererId}) => delivererId === this.member.id))  
      );

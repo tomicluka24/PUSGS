@@ -1,12 +1,17 @@
-<div routerLink="/social-user-profile" style="margin-top: 100px; text-align: center;">
-    <button mat-raised-button color="primary"> User profile </button>
-</div>
 
-<div routerLink="/social-user-menu" style="margin-top: 50px; text-align: center;">
-    <button mat-raised-button color="primary"> Menu </button>
+<div>
+    <div routerLink="/social-user-profile" style="margin-top: 200px; text-align: center;">
+        <button mat-raised-button color="primary"> User profile </button>
+    </div>
+    
+    <div routerLink="/social-user-menu" style="margin-top: 50px; text-align: center;">
+        <button mat-raised-button color="primary"> Menu </button>
+    </div>
+    
+    <div routerLink="/social-user-new-order" style="margin-top: 50px; text-align: center;">
+        <button mat-raised-button color="primary"> New/Current order </button>
+    </div>
+    <div routerLink="" style="margin-top: 50px; text-align: center;">
+        <button (click)="logOutSocial()" mat-raised-button color="secondary"> Logout </button>
+    </div>
 </div>
-
-<div routerLink="/social-user-new-order" style="margin-top: 50px; text-align: center;">
-    <button mat-raised-button color="primary"> New/Current order </button>
-</div>
-

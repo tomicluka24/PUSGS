@@ -1,32 +1,51 @@
 
-<div class="col-4">
-    <h1>Update Your profile</h1>
+<div style="margin-left: 10.25cm; margin-top: 0.5cm;" class="col-4">
+    <h1>Update profile</h1>
 </div>
 
-<div class="row" *ngIf="member">
-    <div class="col-8">
-        <tabset class="member-tabset">
-            <tab heading="{{member.username}}'s info">
-                <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
-                    <h4>First name</h4>
-                    <textarea class="form-control" [(ngModel)]="member.firstName" name="firstName" rows="1"></textarea>
-                    <h4 class="mt-2">Last name</h4>
-                    <textarea class="form-control" [(ngModel)]="member.lastName" name="lastName" rows="1"></textarea>
-                    <h4 class="mt-2">Date of birth</h4>
-                    <input class="form-control" type="date" id="dateOfBirth" [(ngModel)]="member.DateOfBirth" name="dateOfBirth">  
-                    <h4 class="mt-2">Address</h4>
-                    <textarea class="form-control" [(ngModel)]="member.address" name="address" rows="1"></textarea>
-                    <h4 class="mt-2">Photo</h4>
-                    <div id="photo" contentEditable="true">
-                        <img widh="150" height="150" src="{{member.photoUrl}}"/>
-                        <input class="form-control" type="file" id="changePhoto" name="photoUrl" [(ngModel)]="member.photoUrl">
+<div style="margin-left: 10cm;" class="row" *ngIf="member">
+    <div class="col-4">
+        <div style="background-color: white;" class="card-body">
+            <form  #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
+                <h4>First name</h4>
+                <input class="form-control" required #firstName="ngModel" [(ngModel)]="member.firstName" style="width: 5cm;"  id="text" name="firstName" rows="1">
+                <div style="color: red;" *ngIf="firstName.invalid" class="alert">
+                    <div *ngIf="firstName.errors?.['required']">
+                        First name is required!
                     </div>
-                </form>
-            </tab>
-            <button mat-raised-button style="margin-top:10px;" class="member-tabset" mt-3 [disabled]="!editForm.dirty" form="editForm" type="submit" color="primary">Save Changes</button>
-            <div routerLink="/user-profile" style="margin-top: 10px; margin-bottom: 20px;  text-align: left;">
-                <button mat-raised-button color="primary"> Go back to your profile </button>
-            </div>
-        </tabset>
+                </div>
+                <h4 class="mt-2">Last name</h4>
+                <input class="form-control" required #lastName="ngModel" [(ngModel)]="member.lastName" style="width: 5cm;" name="lastName" rows="1">
+                <div style="color: red;" *ngIf="lastName.invalid" class="alert">
+                    <div *ngIf="lastName.errors?.['required']">
+                        Last name is required!
+                    </div>
+                </div>
+                <h4 class="mt-2">Date of birth</h4>
+                <input class="form-control" type="date" id="dateOfBirth" [(ngModel)]="member.DateOfBirth" style="width: 5cm;" name="dateOfBirth">  
+                <h4 class="mt-2">Address</h4>
+                <input class="form-control" required #address="ngModel" [(ngModel)]="member.address" style="width: 7cm;" name="address" rows="1">
+                <div style="color: red;" *ngIf="address.invalid" class="alert">
+                    <div *ngIf="address.errors?.['required']">
+                        Address is required!
+                    </div>
+                </div>
+                <h4 class="mt-2">Photo</h4>
+                <div id="photo" contentEditable="true">
+                    <img widh="150" height="150" src="{{member.photoUrl}}"/>
+                    <input class="form-control" type="file" id="changePhoto" name="photoUrl" style="width: 7cm;" [(ngModel)]="member.photoUrl">
+                </div>
+            </form>
+            
+        <button  mat-raised-button style="margin-top:10px; width: 3.3cm;" class="card" mt-3 *ngIf="firstName.valid && lastName.valid && address.valid" form="editForm" type="submit" color="primary">Save Changes</button>
+        <div routerLink="/user-profile" style="margin-top: 10px; margin-bottom: 20px;   text-align: left;">
+            <button mat-raised-button color="secondary"> Go back to your profile </button>
+        </div>
+
+</div>
+<div  style="margin-left:3.5cm; margin-bottom: 2cm;">
+    <a style="color: black;" routerLink="/dashboard">Back to dashboard</a>
+</div>
     </div>
+    
 </div>

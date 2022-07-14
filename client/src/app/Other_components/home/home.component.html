@@ -1,27 +1,23 @@
 <section class="vh-100">
     <div class="container py-5 h-100">
-        <h1>Welcome to delivery app</h1>
+        <h1>Delivery app</h1>
         <div style="margin-top: 2cm;" class="row d-flex align-items-center justify-content-center h-10">
             <div class="col-md-8 col-lg-7 col-xl-6">
-                <img src="https://www.odtap.com/wp-content/uploads/2019/07/On-demand-food-delivery-2.jpg" class="img-fluid"
-                    alt="Delivery image">
-            </div>
-
-            <!-- Regular login -->
+                    <!-- Regular login -->
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                 <!-- Already logged in-->
-                <div style="margin-bottom: 10cm; font-weight: bold; white-space: pre-line"*ngIf="(accountService.currentUser$ | async) !== null" id="userIsLoggedIn" routerLink="/dashboard">
+                <div style="margin-bottom: 10cm; font-weight: bold; white-space: pre-line"*ngIf="((accountService.currentUser$ | async)) !== null" id="userIsLoggedIn" routerLink="/dashboard">
                     You are already logged in.<br>
                     Please follow the <a routerLink="/dashboard"> link </a> to go back to dashboard.
                 </div>
                 <form *ngIf="(accountService.currentUser$ | async) === null" (ngSubmit)="login()" #loginForm="ngForm">
                     <!-- Email input -->
                     <div class="form-floating mb-3">
-                        <input type="text" required class="form-control" #name="ngModel" [(ngModel)]="model.email"  name="email"
+                        <input type="text" required class="form-control" #email="ngModel" [(ngModel)]="model.email"  name="email"
                             id="floatingInput" placeholder="name@example.com">
                         <label for="floatingInput">Email address</label>
-                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
-                            <div *ngIf="name.errors?.['required']">
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+                            <div *ngIf="email.errors?.['required']">
                                 Email is required!
                             </div>
                         </div>
@@ -29,31 +25,21 @@
 
                     <!-- Password input -->
                     <div class="form-floating mb-3">
-                        <input type="password" required class="form-control" #name="ngModel" [(ngModel)]="model.password" name="password"
+                        <input type="password" required class="form-control" #password="ngModel" [(ngModel)]="model.password" name="password"
                             id="floatingPassword" placeholder="Password">
                         <label for="floatingPassword">Password</label>
-                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
-                            <div *ngIf="name.errors?.['required']">
+                        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+                            <div *ngIf="password.errors?.['required']">
                                 Password is required!
                             </div>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-around align-items-center mb-4">
-                        <!-- Checkbox -->
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-                            <label class="form-check-label" for="form1Example3"> Remember me </label>
-                        </div>
-                        <a href="#!">Forgot password?</a>
-                    </div>
-
-                    <!-- why this disable doesn't work ? -->
                     <!-- Submit button -->
                     <button [disabled]="!model.email || !model.password" id="signIn" type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
 
                     
-                    <div class="divider d-flex align-items-center my-4">
+                    <div style="margin-left: 6cm;" class="d-flex align-items-center my-4">
                         <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
                     </div>
 
@@ -70,6 +56,7 @@
 
                 </form>
                 
+            </div>
             </div>
         </div>
     </div>

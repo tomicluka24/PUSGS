@@ -14,9 +14,9 @@
 </div>
 
 <div *appHasRole="['Deliverer']">
-    <div *ngIf="member?.verified === 'True'">
+    <div style="margin-top: 3cm; margin-left:11cm" *ngIf="member?.verified === 'True'">
         <div class="row justify-content-left" style="font-weight: bold; white-space: pre-line" *ngIf="member?.currentOrderId !== 0">
-            <h1>Your current active order details:</h1>
+            <h1>Current order:</h1>
             <div>
                 <p>Order id: {{order?.id}}</p>
                 <p>Consumer id: {{order?.consumerId}}</p>
@@ -28,15 +28,14 @@
                 <p>Total price: {{order?.price}}</p>
                 <p>
                     You need to deliver your order in:
-                    <countdown #countdown style="font-weight: bold;"  [config]="{leftTime: deliveryTime, format: 'mm:ss', notify: 0}"></countdown> 
+                    <countdown #countdown style="font-weight: bold; color: black;"  [config]="{leftTime: deliveryTime, format: 'mm:ss', notify: 0}"></countdown> 
                 </p>
             </div>
         </div>
-
         
-        <div class="row justify-content-left" style="font-weight: bold; white-space: pre-line" *ngIf="member?.currentOrderId === 0">
-            <div>
-                <h1> You currently dont have accepted order </h1>
+        <div  class="row justify-content-left" style="font-weight: bold; white-space: pre-line" *ngIf="member?.currentOrderId === 0">
+            <div style="margin-top: 3cm; margin-right: 8cm;">
+                <h1> You currently dont have order </h1>
                 <p>
                     Go to the <a routerLink="/dashboard"> dashboard </a> or accept one of the <a routerLink="/new-orders"> new orders </a>.
                 </p>

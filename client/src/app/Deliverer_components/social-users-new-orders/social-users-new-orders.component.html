@@ -1,0 +1,81 @@
+<div class="row" *appHasRole="['Deliverer']">
+    <h1 style="margin-left: 5cm; margin-top: 3cm;"> New orders from social network users</h1>
+    <div style="margin-left: 3cm;" *ngIf="member?.verified === 'True'" class="col-4">
+      <div *ngIf="member?.currentOrderId == 0">
+            <table mat-table id="table" [dataSource]="orders" class="mat-elevation-z8 orders-table">
+            
+                <ng-container id="id" matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef> Id </th>
+                  <td mat-cell *matCellDef="let order"> {{order.id}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="consumerId">
+                    <th mat-header-cell *matHeaderCellDef> Consumer Id </th>
+                    <td mat-cell *matCellDef="let order"> {{order.consumerId}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="productName">
+                    <th mat-header-cell *matHeaderCellDef> Product name </th>
+                    <td mat-cell *matCellDef="let order"> {{order.productName}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                    <td mat-cell *matCellDef="let order"> {{order.quantity}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="deliveryAddress">
+                    <th mat-header-cell *matHeaderCellDef> Delivery address </th>
+                    <td mat-cell *matCellDef="let order"> {{order.deliveryAddress}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="comment">
+                    <th mat-header-cell *matHeaderCellDef> Comment </th>
+                    <td mat-cell *matCellDef="let order"> {{order.comment}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef> Price </th>
+                    <td mat-cell *matCellDef="let order"> {{order.price}} </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="accept">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let row; let i = index;">
+                        <button id="button1" style="float: right;" class="btn btn-success btn-lg" routerLink="/current-order" (click)="accept(row.id)"> Accept </button>
+                    </td>
+                  </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"></tr>
+              </table>
+          </div>
+          
+         
+      </div>
+      <div *ngIf="member?.currentOrderId != 0">
+        <h1  style="display: inline-block; margin-left: 10cm;"> You already accepted the order </h1>
+      </div>
+      <div style="margin-left: 12cm;"  id="dash">
+        <p>
+          Go to the <a style="color: black;"  routerLink="/dashboard"> dashboard </a> or see your<a style="color: black;" routerLink="/current-order"> current order </a>.
+        </p>
+      </div>
+  </div>
+  
+  
+  
+  <div *appHasRole="['Deliverer']">
+      <div style="font-weight: bold; white-space: pre-line" *ngIf="member?.verified === 'False'">
+          Your verification process is not finished yet.  <br>
+          Please follow the <a routerLink="/dashboard"> link </a> to go back to dashboard.
+      </div>
+  </div>
+  
+  
+  <div *appHasRole="['Deliverer']">
+      <div style="color: red; font-weight: bold; white-space: pre-line" *ngIf="member?.verified === 'Declined'">
+          Your verification was declined <br>
+          Please follow the <a routerLink="/dashboard"> link </a> to go back to dashboard.
+      </div>
+  </div>

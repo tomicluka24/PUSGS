@@ -52,44 +52,88 @@ export class CurrentOrderComponent implements OnInit {
   }
 
   loadOrder() {
-    this.orderService.getOrderAsDeliverer(this.member.currentOrderId.toString()).subscribe(order => {
-      this.order = order;
-       
-       this.deliveryStartedTime = +localStorage.getItem(this.order.delivererId + 'delivery' + order.id + 'StartedTime');
-       this.loadPageTime = Date.now()/1000;
-       this.deliveryTime = +localStorage.getItem(this.order.delivererId + 'delivery'+this.order.id+'Time');
-       var firstTime =  localStorage.getItem(this.order.delivererId + 'delivery' + this.order.id + 'FirstTime');
-
-       if(firstTime != "True") //if not first time loaded, take lastTimeLoaded and update lastTime loaded
-       {
-         var lastTimeLoaded = +localStorage.getItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime');
-         this.deliveryTime = this.deliveryTime - (this.loadPageTime - lastTimeLoaded);
-         localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString());
-       }
-       else // page loaded first time so take startedTime and place lastTimeLoaded
-       {
-         this.deliveryTime = this.deliveryTime - (this.loadPageTime - this.deliveryStartedTime);
-         localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString());
-         localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'FirstTime', 'False');
-       }
-      
-       localStorage.setItem(this.order.delivererId + 'delivery' + this.order.id + 'Time', this.deliveryTime.toString()); 
-      if(this.deliveryTime >= 0)
+    if(this.member.currentOrderId < 1000)
+    {
+      this.orderService.getOrderAsDeliverer(this.member.currentOrderId.toString()).subscribe(order => {
+        this.order = order;
+         this.deliveryStartedTime = +localStorage.getItem(this.member.id + 'delivery' + order.id + 'StartedTime');
+         this.loadPageTime = Date.now()/1000;
+         this.deliveryTime = +localStorage.getItem(this.member.id + 'delivery'+this.order.id+'Time');
+         var firstTime =  localStorage.getItem(this.member.id + 'delivery' + this.order.id + 'FirstTime');
+  
+         if(firstTime != "True") //if not first time loaded, take lastTimeLoaded and update lastTime loaded
+         {
+           var lastTimeLoaded = +localStorage.getItem(this.member.id + 'delivery' + this.order.id + 'LastTime');
+           this.deliveryTime = this.deliveryTime - (this.loadPageTime - lastTimeLoaded);
+           localStorage.setItem(this.member.id + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString());
+         }
+         else // page loaded first time so take startedTime and place lastTimeLoaded
+         {
+           this.deliveryTime = this.deliveryTime - (this.loadPageTime - this.deliveryStartedTime);
+           localStorage.setItem(this.member.id + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString());
+           localStorage.setItem(this.member.id + 'delivery' + this.order.id + 'FirstTime', 'False');
+         }
+        
+         localStorage.setItem(this.member.id + 'delivery' + this.order.id + 'Time', this.deliveryTime.toString()); 
+        if(this.deliveryTime >= 0)
+        {
+          setTimeout(window.location.reload.bind(window.location),this.deliveryTime* 1000) ;
+        }
+         // order delivered
+         if(this.deliveryTime <= 0)
+         {
+           this.order.delivered = 'True';
+           this.member.currentOrderId = 0;
+           this.memberService.deliverOrder(this.member).subscribe(() => {
+          })
+            this.orderService.deliverOrder(this.order).subscribe(() => {
+              this.toastr.success('Order delivered successfully');
+          })
+         }
+      });
+    }
+    else
+    {
+      this.order = JSON.parse(localStorage.getItem('socialUserOrder')); 
+      if(this.order != null)
       {
-        setTimeout(window.location.reload.bind(window.location),this.deliveryTime* 1000) ;
-      }
-       // order delivered
-       if(this.deliveryTime <= 0)
+        this.deliveryStartedTime = +localStorage.getItem(this.member.id + 'delivery' + this.order .id + 'StartedTime');
+        this.loadPageTime = Date.now()/1000;
+        this.deliveryTime = +localStorage.getItem(this.member.id + 'delivery'+this.order.id+'Time');
+        var firstTime =  localStorage.getItem(this.member.id + 'delivery' + this.order.id + 'FirstTime');
+ 
+        if(firstTime != "True") //if not first time loaded, take lastTimeLoaded and update lastTime loaded
+        {
+          var lastTimeLoaded = +localStorage.getItem(this.member.id + 'delivery' + this.order.id + 'LastTime');
+          this.deliveryTime = this.deliveryTime - (this.loadPageTime - lastTimeLoaded);
+          localStorage.setItem(this.member.id + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString());
+        }
+        else // page loaded first time so take startedTime and place lastTimeLoaded
+        {
+          this.deliveryTime = this.deliveryTime - (this.loadPageTime - this.deliveryStartedTime);
+          localStorage.setItem(this.member.id + 'delivery' + this.order.id + 'LastTime', (Date.now()/1000).toString());
+          localStorage.setItem(this.member.id + 'delivery' + this.order.id + 'FirstTime', 'False');
+        }
+       
+        localStorage.setItem(this.member.id + 'delivery' + this.order.id + 'Time', this.deliveryTime.toString()); 
+       if(this.deliveryTime >= 0)
        {
-         this.order.delivered = 'True';
-         this.member.currentOrderId = 0;
-         this.memberService.deliverOrder(this.member).subscribe(() => {
-        })
-          this.orderService.deliverOrder(this.order).subscribe(() => {
-            this.toastr.success('Order delivered successfully');
-        })
+         setTimeout(window.location.reload.bind(window.location),this.deliveryTime* 1000) ;
        }
-    });
-  }
+        // order delivered
+        if(this.deliveryTime <= 0)
+        {
+          this.order.delivered = 'True';
+          this.member.currentOrderId = 0;
+          this.memberService.deliverOrder(this.member).subscribe(() => {
+         })
+          this.orderService.placeOrderAsSocialUser(this.order)
+          this.toastr.success('Order delivered successfully');
+         //  localStorage.removeItem('socialUserOrder');
+        }
+      }
+     
+    }
 
+    }
 }

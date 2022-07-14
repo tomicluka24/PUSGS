@@ -1,2 +1,2 @@
 -- SQLite
-DELETE FROM Menu WHERE Id > 21;
+DELETE FROM AspNetUsers WHERE Id > 9;

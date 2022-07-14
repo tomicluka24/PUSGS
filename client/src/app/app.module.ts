@@ -51,6 +51,7 @@ import { MenuComponent } from './Consumer_components/menu/menu.component';
 import { SocialUserProfileComponent } from './SocialUser_components/social-user-profile/social-user-profile.component';
 import { SocialUserNewOrderComponent } from './SocialUser_components/social-user-new-order/social-user-new-order.component';
 import { SocialUserMenuComponent } from './SocialUser_components/social-user-menu/social-user-menu.component';
+import { SocialUsersNewOrdersComponent } from './Deliverer_components/social-users-new-orders/social-users-new-orders.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { SocialUserMenuComponent } from './SocialUser_components/social-user-men
     SocialUserProfileComponent,
     SocialUserNewOrderComponent,
     SocialUserMenuComponent,
+    SocialUsersNewOrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,8 +119,8 @@ import { SocialUserMenuComponent } from './SocialUser_components/social-user-men
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider(
               '498770238641524'
-            )
-          }
+            ),
+          },
         ]
       } as SocialAuthServiceConfig,
     },   

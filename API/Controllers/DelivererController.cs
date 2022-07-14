@@ -80,7 +80,7 @@ namespace API.Controllers
 
         [Authorize(Policy = "RequireDelivererRole")]
         [HttpGet("my-orders")]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrdersAsync()
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrdersssAsync()
         {
             var orders = await _orderRepository.GetOrdersAsync();
 

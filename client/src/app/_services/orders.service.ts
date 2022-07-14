@@ -32,9 +32,9 @@ export class OrdersService {
     //     if (order) {
           localStorage.setItem('socialUserOrder', JSON.stringify(model));
           console.log(model);
-    //     }
-    //     return order;
-    //   })
+        // }
+        // return order;
+      // })
     // )
   }
   
@@ -43,7 +43,7 @@ export class OrdersService {
     return this.http.get<Order[]>(this.baseUrl + 'admin/all-orders').pipe(
       map(orders => {
         this.orders = orders;
-        return orders;
+        return this.orders;
       })
     )
   }

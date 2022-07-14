@@ -21,13 +21,16 @@ namespace API.Controllers
         public readonly IPhotoService _photoService;
         public readonly IEmailSender _emailSender;
         private readonly IProductRepository _productRepository;
-        public UsersController(IUserRepository userRepository, IMapper mapper, IProductRepository productRepository, IPhotoService photoService, IEmailSender emailSender)
+        private readonly IOrderRepository _orderRepository;
+        public UsersController(IUserRepository userRepository, IMapper mapper, IProductRepository productRepository,
+         IPhotoService photoService, IEmailSender emailSender, IOrderRepository orderRepository)
         {
             _photoService = photoService;
             _mapper = mapper;
             _userRepository = userRepository;
             _emailSender = emailSender;
             _productRepository = productRepository;
+            _orderRepository = orderRepository;
         }
 
         [HttpGet]
@@ -65,7 +68,7 @@ namespace API.Controllers
         {
             var user = await _userRepository.GetUserByUsernameAsync(memberVerifyDTO.Username);
             var message = new Message(new string[] {memberVerifyDTO.Email}, "Delivery App - Profile verification",
-                                      memberVerifyDTO.Username + " Your Delivery App profile is verified. You can now start with your first delivery :)");
+                                      memberVerifyDTO.Username + " Your Delivery App account is verified. You can now start with your first delivery :)");
 
             _mapper.Map(memberVerifyDTO, user);
 
@@ -76,6 +79,24 @@ namespace API.Controllers
             if (await _userRepository.SaveAllAsync()) return NoContent();
 
             return BadRequest("Failed to validate user");
+        }
+
+        [HttpPut("DeclineUser")]
+        public async Task<ActionResult> DeclineUser(MemberVerifyDTO memberVerifyDTO)
+        {
+            var user = await _userRepository.GetUserByUsernameAsync(memberVerifyDTO.Username);
+            var message = new Message(new string[] {memberVerifyDTO.Email}, "Delivery App - Profile verification",
+                                      memberVerifyDTO.Username + " Your Delivery App account is declined. If admin verifies your account in future, we will notify you!");
+
+            _mapper.Map(memberVerifyDTO, user);
+
+            _userRepository.Update(user);
+
+            _emailSender.SendEmail(message);
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to decline user");
         }
 
         [HttpPut("AcceptOrder")]
@@ -106,22 +127,15 @@ namespace API.Controllers
             return BadRequest("Failed to accept order");
         }
 
-        [HttpPut("DeclineUser")]
-        public async Task<ActionResult> DeclineUser(MemberVerifyDTO memberVerifyDTO)
+        [AllowAnonymous]
+        [HttpPost("place-order-as-social-user")]
+        public async Task<ActionResult> PlaceOrderAsSocialUser(NewOrderDTO newOrderDTO)
         {
-            var user = await _userRepository.GetUserByUsernameAsync(memberVerifyDTO.Username);
+            var order = _mapper.Map<Order>(newOrderDTO);
+            _orderRepository.PlaceOrder(order);
 
-            _mapper.Map(memberVerifyDTO, user);
-
-            _userRepository.Update(user);
-
-            if (await _userRepository.SaveAllAsync()) return NoContent();
-
-            return BadRequest("Failed to decline user");
+            if (await _orderRepository.SaveAllAsync()) return NoContent();
+                return BadRequest("Failed to place new order");
         }
-
-
-
-
     }
 } 

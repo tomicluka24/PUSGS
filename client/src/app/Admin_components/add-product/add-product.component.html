@@ -1,17 +1,24 @@
 <div *appHasRole="['Admin']" class="container">
-    <div class="row justify-content-center">
+    <div style="margin-top: 3cm;"  class="row justify-content-center">
         <div class="col-md-8">
-            <h1 class="">Fill out the fileds for the new product</h1>
+            <h1 style="margin-left: 4cm;" class="">Add new product</h1>
             <div class="card">
                 <div class="card-body">
                     <form class="form-horizontal" [formGroup]="addProductForm" (ngSubmit)="addProductForm.valid && addProduct()" autocomplete="off"
                         method="post" action="#">
                         <app-text-input [formControl]='addProductForm.controls["name"]' [label]='"Name"'>
                         </app-text-input>
-                        <app-text-input [formControl]='addProductForm.controls["price"]' type="number" [label]='"Price"'>
+                        <app-text-input [formControl]='addProductForm.controls["price"]' type="number"  [label]='"Price"'>
                         </app-text-input>
                         <app-text-input [formControl]='addProductForm.controls["ingredients"]' [label]='"Ingredients"'>
                         </app-text-input>
+                        <div class="row" *ngIf="validationErrors.length > 0">
+                            <ul class="text-danger">
+                                <li *ngFor="let error of validationErrors">
+                                    {{error}}
+                                </li>
+                            </ul>
+                        </div>
                         <div class="row" *ngIf="validationErrors.length > 0">
                             <ul class="text-danger">
                                 <li *ngFor="let error of validationErrors">
@@ -24,7 +31,7 @@
                                 class="btn btn-primary btn-lg btn-block register-button">Add product</button>
                         </div>
                         <div>
-                            <a routerLink="/dashboard">Go back to dashboard</a>
+                            <a style="margin-left: 16cm; color: black;" routerLink="/dashboard">Back to dashboard</a>
                         </div>
                     </form>
                 </div>

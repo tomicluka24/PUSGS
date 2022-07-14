@@ -18,6 +18,14 @@ socialUser: SocialUser;
     this.setCurrentUser();
   
   }
+  
+  logOutSocial(): void{
+    this.authService.signOut(true);
+    localStorage.removeItem('socialUser');
+    // this.isSignedin = false;
+    this.router.navigateByUrl('');
+  }
+
 
   async setCurrentUser() {
     this.socialUser = JSON.parse(localStorage.getItem('socialUser'));

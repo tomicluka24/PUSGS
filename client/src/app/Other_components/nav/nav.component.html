@@ -11,8 +11,6 @@
         <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
             <a id="welcome" class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.username}}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu="">
-                <!-- <a routerLink="./member-edit" class="dropdown-item">Edit profile</a>
-                <div class="dropdown-divider"></div> -->
                 <a class="dropdown-item" (click)="logout()" >Logout</a>
             </div>
         </div>
@@ -20,17 +18,10 @@
     </div>
 </nav>
 
-
-<nav class="navbar navbar-expand-md navbar-dark static-top bg-primary" *ngIf="(user)">
+<!-- 
+<nav class="navbar navbar-expand-md navbar-dark bg-primary" *ngIf="(user)">
     <div class="container">
         <a id="navCaption" class="navbar-brand" href="./social-user-dashboard">Delivery App</a>
-
-        <ul id="navlinks" class="navbar-nav mr-auto" >
-            <!-- <li class="nav-item">
-                <a class="nav-link" routerLink="/dashboard" routerLinkActive='active'>Dashboard</a>
-            </li> -->
-        </ul>
-
         <div class="dropdown" *ngIf="(user)" dropdown>
             <a id="welcome" class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.firstName}}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu="">
@@ -39,4 +30,4 @@
         </div>
 
     </div>
-</nav>
+</nav> -->

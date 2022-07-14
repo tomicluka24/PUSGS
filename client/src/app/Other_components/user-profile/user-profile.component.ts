@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit {
   member: Member;
   user: User;
   photoUrl: string;
+  dateOfBirth: string;
 
   constructor(private accountService: AccountService, private memberService: MembersService, private sanitizer: DomSanitizer) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
@@ -28,12 +29,25 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     if (this.user != null)
       this.loadMember();
-
   }
 
   loadMember() {
-    this.memberService.getMember(this.user.username).subscribe(member => {this.member = member;});
+    this.memberService.getMember(this.user.username).subscribe(member => {
+      this.member = member;
+
+    var datetime = new Date(this.member.dateOfBirth);
+    this.member.dateOfBirth = this.formatDate(datetime);
+    });
   }
+
+
+formatDate(date) {
+  return [
+    date.getFullYear(),
+    (date.getMonth() + 1),
+    (date.getDate()),
+  ].join('-');
+}
 
   sanitizeImageUrl(imageUrl: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);

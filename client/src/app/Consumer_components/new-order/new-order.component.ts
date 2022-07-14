@@ -58,6 +58,8 @@ export class NewOrderComponent implements OnInit {
   loadMember() {
     this.membersService.getMember(this.user.username).subscribe(member => {
       this.member = member;
+
+
       if (this.member.currentOrderId != 0)
       {
         this.loadOrder();
@@ -68,7 +70,7 @@ export class NewOrderComponent implements OnInit {
   loadOrder() {
     this.orderService.getOrder(this.member.currentOrderId.toString()).subscribe(order => {
       this.order = order;
-
+      
       if(this.order.accepted == "True")
       {
         this.deliveryStartedTime = +localStorage.getItem(this.order.delivererId + 'delivery' + order.id + 'StartedTime');
@@ -102,7 +104,7 @@ export class NewOrderComponent implements OnInit {
           this.member.currentOrderId = 0;
  
           this.membersService.deliverOrder(this.member).subscribe(() => {
-            this.toastr.success('Order recieved successfully');
+            this.toastr.success('Order received successfully');
           })
           this.orderService.recieveOrder(this.order).subscribe(() => {
           }) 

@@ -5,12 +5,13 @@
 }
 
 .card-body {
-    padding: 0 25px;
+    padding: 0 15px;
+    background-color: transparent;
 }
 
 .card-footer {
     padding: 10px 15px;
-    background-color: #fff;
+    background-color: transparent;
     border-top: none;
 } 
 
@@ -23,3 +24,4 @@
 /* #photoEdit {
     width: 150;
 } */
+

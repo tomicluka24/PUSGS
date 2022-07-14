@@ -18,7 +18,23 @@ export class MemberDetailComponent implements OnInit {
   }
 
   loadMember() {
-    this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe(member => {this.member = member;})
-  }
+    this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe(member => {
+      this.member = member;
+      var datetime = new Date(this.member.dateOfBirth);
+      this.member.dateOfBirth = this.formatDate(datetime);
+    })
+  };
+
+
+
+
+
+formatDate(date) {
+return [
+  date.getFullYear(),
+  (date.getMonth() + 1),
+  (date.getDate()),
+].join('-');
+}
 
 }

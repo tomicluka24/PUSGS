@@ -1,7 +1,7 @@
 <div class="row" *appHasRole="['Deliverer']">
-    <div *ngIf="member?.verified === 'True'" class="col-4">
-        <div *ngIf="member?.currentOrderId == 0">
-          <h1> New orders</h1>
+  <div style="margin-left: 3cm;" *ngIf="member?.verified === 'True'" class="col-4">
+    <div *ngIf="member?.currentOrderId == 0">
+          <h1 style="margin-left: 9cm; margin-top: 3cm;"> New orders</h1>
           <table mat-table id="table" [dataSource]="orders" class="mat-elevation-z8 orders-table">
           
               <ng-container id="id" matColumnDef="id">
@@ -51,15 +51,15 @@
             </table>
         </div>
         
-        <div *ngIf="member?.currentOrderId != 0">
-          <h1 style="display: inline-block;"> You already accepted the order </h1>
-        </div>
-          
-        <div id="dash">
-          <p>
-            Go to the <a routerLink="/dashboard"> dashboard </a> or see your<a routerLink="/current-order"> current order </a>.
-          </p>
-        </div>
+       
+    </div>
+    <div *ngIf="member?.currentOrderId != 0">
+      <h1  style="display: inline-block; margin-left: 10cm;"> You already accepted the order </h1>
+    </div>
+    <div style="margin-left: 12cm;"  id="dash">
+      <p>
+        Go to the <a style="color: black;"  routerLink="/dashboard"> dashboard </a> or see your<a style="color: black;" routerLink="/current-order"> current order </a>.
+      </p>
     </div>
 </div>
 

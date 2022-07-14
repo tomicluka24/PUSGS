@@ -1,7 +1,7 @@
 <div class="container">
     <div *ngIf="!order" class="row justify-content-center">
         <div class="col-md-8">
-            <h1 class="">Place your order</h1>
+            <h1 style="margin-left: 3.8cm;">Place your order</h1>
             <div class="card">
                 <div class="card-body">
                     <form class="form-horizontal" [formGroup]="placeOrderForm" (ngSubmit)="placeOrderForm.valid && placeOrder()" autocomplete="off"
@@ -61,12 +61,13 @@
     </div>
 </div>
 
-<div class="container">
-    <div  class="row justify-content-left">
-        <div *ngIf="order">
-            <div *ngIf="order?.delivererId !== 1"  class="col-md-10">
-                <h1 style="display: inline-block;"> Your order is accepted and deliverer is on it's way.</h1>
-                <h2> Your current active order details:  </h2>
+
+<div style="margin-left: 2cm;" class="container">
+    <div *ngIf="order" class="row justify-content-center">
+        <div  style="margin-top:5cm; margin-left: 8cm; font-weight: bold; white-space: pre-line;"  *ngIf="order?.delivererId !== 1"  class="col-md-10">
+            <h1 style="display: inline-block;"> Order is on the way. </h1>
+            <div style="margin-left: 2.5cm">
+                <h2> Details:  </h2>
                 <div>
                     <p>Id: {{order?.id}}</p>
                     <p>Consumer id: {{order?.consumerId}}</p>
@@ -78,20 +79,21 @@
                     <p>Total price: {{order?.price}}</p>
                     <p>
                         Your order will be delivered in:
-                        <countdown #countdown style="font-weight: bold;"  [config]="{leftTime: deliveryTime, format: 'mm:ss', notify: 0}"></countdown> 
+                        <countdown #countdown style="color:black; font-weight: bold;"  [config]="{leftTime: deliveryTime, format: 'mm:ss', notify: 0}"></countdown> 
                     </p>
-                </div>
-                <div id="dash">
-                    <a mar href="/social-user-dashboard">Back to dashboard</a>
                 </div>
             </div>
             
-            <div *ngIf="order?.delivererId === 1"  class="col-md-10">
-                <h1 class="">Your order is ready.</h1>
-                <h2> Wait until deliverer accepts your order </h2>
-                <div id="dash">
-                    <a mar href="/social-user-dashboard">Back to dashboard</a>
-                </div>
+            <div style="margin-left: 8cm;" id="dash">
+                <a style="color:black;" mar href="/social-user-dashboard">Back to dashboard</a>
+            </div>
+        </div>
+        
+        <div style="margin-left:9cm; margin-top: 5cm;" *ngIf="order?.delivererId === 1"  class="col-md-10">
+            <h1 class="">Your order is ready.</h1>
+            <h2> Wait until deliverer accepts your order </h2>
+            <div id="dash">
+                <a style="color: black; margin-left: 10cm" href="/social-user-dashboard">Back to dashboard</a>
             </div>
         </div>
     </div>

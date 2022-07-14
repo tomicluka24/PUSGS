@@ -25,7 +25,7 @@ export class AddProductComponent implements OnInit {
     this.addProductForm = new FormGroup(
     {
       name: new FormControl("", Validators.required),
-      price: new FormControl("", Validators.required),
+      price: new FormControl("", [Validators.required, Validators.min(100), Validators.max(10000)]),
       ingredients: new FormControl("", Validators.required),
     });
   }

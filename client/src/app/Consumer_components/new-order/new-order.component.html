@@ -1,7 +1,7 @@
 <div *appHasRole="['Consumer']" class="container">
     <div *ngIf="member?.currentOrderId === 0" class="row justify-content-center">
         <div class="col-md-8">
-            <h1 class="">Place your order</h1>
+            <h1 style="margin-left: 3cm;" class="">Place your order</h1>
             <div class="card">
                 <div class="card-body">
                     <form class="form-horizontal" [formGroup]="placeOrderForm" (ngSubmit)="placeOrderForm.valid && placeOrder()" autocomplete="off"
@@ -62,35 +62,38 @@
 </div>
 
 <div *appHasRole="['Consumer']" class="container">
-    <div *ngIf="member?.currentOrderId !== 0" class="row justify-content-left">
+    <div *ngIf="member?.currentOrderId !== 0" class="row justify-content-center">
         <div *ngIf="order">
-            <div *ngIf="order?.delivererId !== 1"  class="col-md-10">
-                <h1 style="display: inline-block;"> Your order is accepted and deliverer is on it's way.</h1>
-                <h2> Your current active order details:  </h2>
-                <div>
-                    <p>Id: {{order?.id}}</p>
-                    <p>Consumer id: {{order?.consumerId}}</p>
-                    <p>Deliverer id: {{order?.delivererId}}</p>
-                    <p>Product id: {{order?.productId}}</p>
-                    <p>Quantity: {{order?.quantity}}</p>
-                    <p>Delivery address: {{order?.deliveryAddress}}</p>
-                    <p>Comment: {{order?.comment}}</p>
-                    <p>Total price: {{order?.price}}</p>
-                    <p>
-                        Your order will be delivered in:
-                        <countdown #countdown style="font-weight: bold;"  [config]="{leftTime: deliveryTime, format: 'mm:ss', notify: 0}"></countdown> 
-                    </p>
+            <div  style="margin-top:3cm; margin-left: 8cm; font-weight: bold; white-space: pre-line;"  *ngIf="order?.delivererId !== 1"  class="col-md-10">
+                <h1 style="display: inline-block;"> Order is on the way. </h1>
+                <div style="margin-left: 2.5cm">
+                    <h2> Details:  </h2>
+                    <div>
+                        <p>Id: {{order?.id}}</p>
+                        <p>Consumer id: {{order?.consumerId}}</p>
+                        <p>Deliverer id: {{order?.delivererId}}</p>
+                        <p>Product id: {{order?.productId}}</p>
+                        <p>Quantity: {{order?.quantity}}</p>
+                        <p>Delivery address: {{order?.deliveryAddress}}</p>
+                        <p>Comment: {{order?.comment}}</p>
+                        <p>Total price: {{order?.price}}</p>
+                        <p>
+                            Your order will be delivered in:
+                            <countdown #countdown style="color:black; font-weight: bold;"  [config]="{leftTime: deliveryTime, format: 'mm:ss', notify: 0}"></countdown> 
+                        </p>
+                    </div>
                 </div>
-                <div id="dash">
-                    <a mar href="/dashboard">Back to dashboard</a>
+                
+                <div style="margin-left: 8cm;" id="dash">
+                    <a style="color:black;" mar href="/dashboard">Back to dashboard</a>
                 </div>
             </div>
             
-            <div *ngIf="order?.delivererId === 1"  class="col-md-10">
+            <div style="margin-left:9cm; margin-top: 5cm;" *ngIf="order?.delivererId === 1"  class="col-md-10">
                 <h1 class="">Your order is ready.</h1>
                 <h2> Wait until deliverer accepts your order </h2>
                 <div id="dash">
-                    <a mar href="/dashboard">Back to dashboard</a>
+                    <a style="color: black;" mar href="/dashboard">Back to dashboard</a>
                 </div>
             </div>
         </div>

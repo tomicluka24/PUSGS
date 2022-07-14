@@ -1,7 +1,7 @@
-<div class="row" *ngIf="member">
+<div style="margin-left: 11cm;" class="row" *ngIf="member">
     <div *ngIf="member.verified === 'True'" class="col-4">
-        <h1 id="h1">{{member.firstName}}'s profile</h1>
-        <div class="card">
+        <h1 style="display: inline-block;" id="h1">{{member.firstName}}'s profile</h1>
+        <div style="background-color: white;" class="card">
             <img width="150" height="150" [src]="sanitizeImageUrl(member.photoUrl)" alt="{{member.username}}"
                 class="card-img-top img-thumbnail">
             <div class="card-body">
@@ -29,7 +29,7 @@
                     <strong>Email:</strong>
                     <p>{{member.email}}</p>
                 </div>
-                <div>
+                <div *ngIf="member.userType == 'Deliverer'">
                     <strong>Verified:</strong>
                     <p>{{member.verified}}</p>
                 </div>
@@ -40,7 +40,11 @@
             </div>
         </div>
     </div>
+    <div  style="margin-left:3.5cm; margin-bottom: 2cm;">
+        <a style="color: black;" routerLink="/dashboard">Back to dashboard</a>
+    </div>
 </div>
+
 
 <div *ngIf="member">
     <div style="font-weight: bold; white-space: pre-line" *ngIf="member.verified === 'False'">
